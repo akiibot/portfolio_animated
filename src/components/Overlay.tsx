@@ -35,10 +35,10 @@ export default function Overlay() {
                     className="absolute inset-0 flex flex-col items-center justify-center text-center p-6"
                 >
                     <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white drop-shadow-2xl">
-                        John Doe
+                        Yeanul Haque Khan Akib
                     </h1>
                     <p className="text-xl md:text-3xl text-gray-300 mt-4 font-light drop-shadow-lg tracking-wide">
-                        Creative Developer.
+                        Aspiring Software Engineer.
                     </p>
                 </motion.div>
 
@@ -48,7 +48,7 @@ export default function Overlay() {
                     className="absolute inset-0 flex flex-col items-start justify-center text-left p-12 md:p-32"
                 >
                     <h2 className="text-4xl md:text-7xl font-bold tracking-tight text-white max-w-2xl drop-shadow-xl leading-tight">
-                        I build <span className="text-gray-400 font-serif italic">digital experiences.</span>
+                        Transforming raw data <span className="text-gray-400 font-serif italic">into meaningful insights.</span>
                     </h2>
                 </motion.div>
 
@@ -58,7 +58,7 @@ export default function Overlay() {
                     className="absolute inset-0 flex flex-col items-end justify-center text-right p-12 md:p-32"
                 >
                     <h2 className="text-4xl md:text-7xl font-bold tracking-tight text-white max-w-2xl drop-shadow-xl leading-tight">
-                        Bridging design <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">and engineering.</span>
+                        Building efficient <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">and scalable solutions.</span>
                     </h2>
                 </motion.div>
 

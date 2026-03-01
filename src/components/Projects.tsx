@@ -3,37 +3,23 @@ import { ArrowUpRight } from "lucide-react";
 export default function Projects() {
     const projects = [
         {
-            title: "Neon Nexus",
-            role: "Lead Developer",
-            desc: "A high-performance WebGL experience exploring futuristic interfaces.",
-            tags: ["Three.js", "React", "GLSL"],
-            link: "#",
+            title: "OneTap Bus",
+            role: "Full-Stack Project",
+            desc: "A modern, full-featured bus route finder, fare calculator, and seat reservation platform built for daily commuters in Dhaka city. Provides an easy way to search routes and estimate fares.",
+            tags: ["Next.js", "React", "Tailwind CSS"],
+            link: "https://github.com/akiibot/OneTap-Bus",
         },
         {
-            title: "Atlas Design System",
-            role: "Design Engineer",
-            desc: "An ultra-minimalist, accessible component library used by 500+ teams.",
-            tags: ["Tailwind", "Framer Motion", "Radix Primitives"],
-            link: "#",
-        },
-        {
-            title: "Echo Protocol",
-            role: "Frontend Architect",
-            desc: "Real-time dashboard processing millions of events per second with zero lag.",
-            tags: ["Next.js", "WebSockets", "Canvas API"],
-            link: "#",
-        },
-        {
-            title: "Lunar Landing",
-            role: "Creative Coder",
-            desc: "Award-winning promotional site with narrative-driven scroll animations.",
-            tags: ["GSAP", "Next.js", "Lenis"],
-            link: "#",
+            title: "Retail Sales Analysis",
+            role: "Data Analysis Project",
+            desc: "A SQL-based project analyzing a retail store’s dataset to extract insights. Conducted data cleaning, EDA, and queried for customer behavior, product performance, and sales trends.",
+            tags: ["SQL", "Data Cleaning", "EDA"],
+            link: "https://github.com/akiibot/sql_retailSalesProject1",
         }
     ];
 
     return (
-        <section className="relative z-20 min-h-screen bg-[#0a0a0a] py-32 px-6 md:px-12 text-white">
+        <section id="projects" className="relative z-20 min-h-screen bg-[#0a0a0a] py-32 px-6 md:px-12 text-white">
             <div className="max-w-6xl mx-auto">
 
                 <header className="mb-24 flex items-end justify-between border-b border-white/10 pb-8">
@@ -85,11 +71,10 @@ export default function Projects() {
                 </div>
 
                 <footer className="mt-32 pt-12 border-t border-white/10 text-center text-sm text-[#a1a1aa] flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p>© {new Date().getFullYear()} John Doe. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Yeanul Haque Khan Akib. All rights reserved.</p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-white transition-colors">Twitter</a>
-                        <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-                        <a href="#" className="hover:text-white transition-colors">GitHub</a>
+                        <a href="https://linkedin.com/in/akiiibot" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+                        <a href="https://github.com/akiibot" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
                     </div>
                 </footer>
 
