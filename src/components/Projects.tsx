@@ -15,6 +15,13 @@ export default function Projects() {
             desc: "A SQL-based project analyzing a retail store’s dataset to extract insights. Conducted data cleaning, EDA, and queried for customer behavior, product performance, and sales trends.",
             tags: ["SQL", "Data Cleaning", "EDA"],
             link: "https://github.com/akiibot/sql_retailSalesProject1",
+        },
+        {
+            title: "CosmoScope",
+            role: "NASA Space Apps Challenge 2025",
+            desc: "A browser game that turns exploration of ultra-high-res NASA imagery into a minimalist, story-driven experience. Play as a time-traveling astronaut investigating mysterious signals from Earth, exploring the solar system, and discovering hidden secrets across time and space.",
+            tags: ["Game Dev", "NASA API"],
+            link: "https://github.com/Alfa5nm/CosmoScope_v2",
         }
     ];
 
@@ -24,8 +31,7 @@ export default function Projects() {
 
                 <header className="mb-24 flex items-end justify-between border-b border-white/10 pb-8">
                     <div>
-                        <h2 className="text-sm uppercase tracking-widest text-[#a1a1aa] mb-4">Selected Works</h2>
-                        <p className="text-4xl md:text-6xl font-black tracking-tighter">Case Studies.</p>
+                        <p className="text-4xl md:text-6xl font-black tracking-tighter">Projects.</p>
                     </div>
                 </header>
 

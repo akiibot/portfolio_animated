@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+
 
 export default function NavBar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -49,15 +49,9 @@ export default function NavBar() {
                     }}
                     className="relative hover:opacity-80 transition-opacity"
                 >
-                    {/* Logo is white/light on dark background by default. Based on user image it's dark text on white bg, so we might need to invert it using CSS if requested later, but we'll use it as-is for now since user just provided the PNG. Assuming it fits the theme. */}
-                    <Image
-                        src="/logo.png"
-                        alt="akiibot logo"
-                        width={120}
-                        height={40}
-                        className="w-auto h-8 md:h-10 cursor-pointer mix-blend-screen"
-                        priority
-                    />
+                    <span className="text-2xl md:text-3xl font-black tracking-tighter text-white inline-flex items-baseline">
+                        akii<span className="text-gray-400 font-medium">bot</span><span className="text-indigo-500 ml-0.5">.</span>
+                    </span>
                 </a>
 
                 {/* Desktop Nav Links */}

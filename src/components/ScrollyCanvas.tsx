@@ -10,6 +10,7 @@ export default function ScrollyCanvas() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [images, setImages] = useState<HTMLImageElement[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [loadingProgress, setLoadingProgress] = useState(0);
 
     // Scroll tracking
     const { scrollYProgress } = useScroll({
@@ -33,6 +34,7 @@ export default function ScrollyCanvas() {
 
                 img.onload = () => {
                     loadedCount++;
+                    setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
                     if (loadedCount === FRAME_COUNT) {
                         setImages(loadedImages);
                         setIsLoaded(true);
@@ -108,8 +110,11 @@ export default function ScrollyCanvas() {
         <div ref={containerRef} className="relative h-[500vh] bg-[#121212]">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 {!isLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center text-white z-50 bg-[#121212]">
-                        Loading Sequence...
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-50 bg-[#121212]">
+                        <p className="text-[#a1a1aa] uppercase tracking-widest text-sm mb-4">Initializing Sequence</p>
+                        <div className="text-7xl md:text-9xl font-black tracking-tighter tabular-nums">
+                            {loadingProgress}%
+                        </div>
                     </div>
                 )}
                 <canvas
