@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, MapPin, Github, Linkedin, Send, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,12 +41,17 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="relative z-20 bg-[#121212] pt-32 pb-12 px-6 md:px-12 text-white border-t border-white/10">
+        <section id="contact" className="relative z-20 bg-[#121212] hover:bg-[#1a1a1a] transition-colors duration-700 pt-32 pb-12 px-6 md:px-12 text-white border-t border-white/10">
             <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-24">
 
                     {/* Left: Contact Form */}
-                    <div>
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                    >
                         <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6">Let&apos;s connect.</h2>
                         <p className="text-xl text-gray-400 font-light mb-10 max-w-md">
                             Always open to discussing new projects, creative ideas or opportunities to be part of your visions.
@@ -89,10 +95,12 @@ export default function Contact() {
                                 />
                             </div>
 
-                            <button
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.96 }}
                                 type="submit"
                                 disabled={isSubmitting || isSuccess}
-                                className={`w-full sm:w-auto px-8 py-4 rounded-xl font-medium tracking-wide flex items-center justify-center gap-3 transition-all duration-300 ${isSuccess
+                                className={`w-full sm:w-auto px-8 py-4 rounded-xl font-medium tracking-wide flex items-center justify-center gap-3 transition-colors duration-300 ${isSuccess
                                     ? "bg-green-500/20 text-green-400 border border-green-500/30"
                                     : "bg-white text-black hover:bg-gray-200"
                                     }`}
@@ -110,12 +118,18 @@ export default function Contact() {
                                         <Send className="w-4 h-4 ml-1" />
                                     </>
                                 )}
-                            </button>
+                            </motion.button>
                         </form>
-                    </div>
+                    </motion.div>
 
                     {/* Right: Contact Details */}
-                    <div className="flex flex-col gap-8 md:pl-12 justify-center">
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                        className="flex flex-col gap-8 md:pl-12 justify-center"
+                    >
                         <a href="mailto:yhk.akib12@gmail.com" className="group flex items-center gap-6 text-lg md:text-xl font-light hover:text-white transition-colors text-gray-300 w-fit">
                             <div className="shrink-0 p-4 bg-white/5 rounded-full group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300">
                                 <Mail className="w-6 h-6" />
@@ -145,7 +159,7 @@ export default function Contact() {
                             </div>
                             Mohammadpur, Dhaka - 1207, Bangladesh
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
 

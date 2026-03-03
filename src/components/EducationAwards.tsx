@@ -49,7 +49,7 @@ export default function EducationAwards() {
     ];
 
     return (
-        <section id="education" className="relative z-20 bg-[#0a0a0a] py-32 px-6 md:px-12 text-white border-t border-white/5 overflow-hidden">
+        <section id="education" className="relative z-20 bg-[#0a0a0a] hover:bg-[#0f0f0f] transition-colors duration-700 py-32 px-6 md:px-12 text-white border-t border-white/5 overflow-hidden">
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
 
                 {/* Education Side */}
@@ -105,9 +105,11 @@ export default function EducationAwards() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.2 + (i * 0.1) }}
-                                className="group flex items-center gap-5 p-5 rounded-2xl bg-gradient-to-r from-white/5 to-transparent border border-white/5 hover:border-white/20 hover:from-white/10 transition-all duration-300 cursor-default"
+                                className="group flex items-center gap-5 p-5 rounded-2xl bg-gradient-to-r from-white/5 to-transparent border border-white/5 hover:border-white/20 hover:from-white/10 transition-all duration-300 cursor-pointer"
                             >
-                                <div className="shrink-0 p-3 bg-black/40 rounded-xl border border-white/10 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                                <div
+                                    className="shrink-0 p-3 bg-black/40 rounded-xl border border-white/10 transition-transform duration-500 transform group-hover:scale-125 group-hover:rotate-12"
+                                >
                                     {award.icon}
                                 </div>
                                 <div>

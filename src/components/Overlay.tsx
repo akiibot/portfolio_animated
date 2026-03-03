@@ -34,12 +34,22 @@ export default function Overlay() {
                     style={{ opacity: opacity1, y: y1, scale: scale1 }}
                     className="absolute inset-0 flex flex-col items-center justify-center text-center p-6"
                 >
-                    <h1 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter text-white drop-shadow-2xl px-4 leading-[1.1]">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                        className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter text-white drop-shadow-2xl px-4 leading-[1.1]"
+                    >
                         Yeanul Haque Khan Akib
-                    </h1>
-                    <p className="text-xl md:text-3xl text-gray-300 mt-4 font-light drop-shadow-lg tracking-wide">
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
+                        className="text-xl md:text-3xl text-gray-300 mt-4 font-light drop-shadow-lg tracking-wide"
+                    >
                         Aspiring Software Engineer.
-                    </p>
+                    </motion.p>
                 </motion.div>
 
                 {/* Section 2 */}

@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function Experience() {
     const experiences = [
         {
@@ -31,7 +35,7 @@ export default function Experience() {
     ];
 
     return (
-        <section id="experience" className="relative z-20 bg-[#0a0a0a] py-32 px-6 md:px-12 text-white border-t border-white/5">
+        <section id="experience" className="relative z-20 bg-[#0a0a0a] hover:bg-[#0f0f0f] transition-colors duration-700 py-32 px-6 md:px-12 text-white border-t border-white/5">
             <div className="max-w-4xl mx-auto">
                 <header className="mb-16">
                     <h2 className="text-sm uppercase tracking-widest text-[#a1a1aa] mb-4">Timeline</h2>
@@ -40,7 +44,14 @@ export default function Experience() {
 
                 <div className="space-y-12">
                     {experiences.map((exp, i) => (
-                        <div key={i} className="relative pl-8 md:pl-0">
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.5, delay: i * 0.15 }}
+                            className="relative pl-8 md:pl-0"
+                        >
                             {/* Timeline Line (Mobile) */}
                             <div className="md:hidden absolute left-0 top-2 bottom-0 w-px bg-white/10" />
                             <div className="md:hidden absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-white/50" />
@@ -54,7 +65,9 @@ export default function Experience() {
                                 {/* Content Side */}
                                 <div className="md:w-3/4 relative pb-12 border-b border-white/5 group-last:border-none group-last:pb-0">
                                     {/* Timeline Desktop dot */}
-                                    <div className="hidden md:block absolute -left-[2.3rem] top-2 w-2 h-2 rounded-full bg-white/30 group-hover:bg-white group-hover:shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300" />
+                                    <div
+                                        className="hidden md:block absolute -left-[2.3rem] top-2 w-2 h-2 rounded-full bg-white/30 cursor-pointer transition-all duration-500 transform hover:scale-150 hover:bg-white hover:shadow-[0_0_15px_rgba(255,255,255,0.8)]"
+                                    />
                                     <div className="hidden md:block absolute -left-9 top-6 bottom-0 w-px bg-white/10 group-last:hidden" />
 
                                     <h3 className="text-xl font-bold tracking-tight mb-1 text-white">{exp.role}</h3>
@@ -70,7 +83,7 @@ export default function Experience() {
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

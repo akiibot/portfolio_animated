@@ -25,7 +25,7 @@ export default function NavBar() {
                 href="https://drive.google.com/file/d/1ShkV7fwprgLWgoSpJBJCiRa-XLnKjeVQ/view?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
-                className="hidden md:flex items-center gap-2 hover:bg-white/10 text-white/80 hover:text-white px-4 py-2 rounded-full transition-colors text-sm font-medium mr-2"
+                className="hidden md:flex items-center gap-2 hover:bg-white/10 text-white/80 hover:text-white px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 text-sm font-medium mr-2"
                 title="View Resume"
             >
                 <Download size={16} />

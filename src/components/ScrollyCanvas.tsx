@@ -107,13 +107,14 @@ export default function ScrollyCanvas() {
     }, [isLoaded, images, frameIndex]);
 
     return (
-        <div ref={containerRef} className="relative h-[500vh] bg-[#121212]">
+        <div ref={containerRef} className="relative h-[500vh] bg-[#121212] pointer-events-none">
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 {!isLoaded && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-50 bg-[#121212]">
-                        <p className="text-[#a1a1aa] uppercase tracking-widest text-xs md:text-sm mb-4">Initializing Sequence</p>
-                        <div className="text-6xl md:text-9xl font-black tracking-tighter tabular-nums text-white">
-                            {loadingProgress}%
+                    <div className="absolute bottom-6 right-6 flex items-center gap-4 z-50 bg-black/40 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 shadow-2xl">
+                        <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-[#a1a1aa] text-xs uppercase tracking-widest font-medium">Loading Sequence</span>
+                            <span className="text-white font-mono text-sm tabular-nums font-bold">{loadingProgress}%</span>
                         </div>
                     </div>
                 )}
