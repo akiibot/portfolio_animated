@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MapPin, Phone, Github, Linkedin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Github, Linkedin, Send, CheckCircle2 } from "lucide-react";
 
 export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
