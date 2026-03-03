@@ -34,7 +34,7 @@ export default function Overlay() {
                     style={{ opacity: opacity1, y: y1, scale: scale1 }}
                     className="absolute inset-0 flex flex-col items-center justify-center text-center p-6"
                 >
-                    <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white drop-shadow-2xl">
+                    <h1 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter text-white drop-shadow-2xl px-4 leading-[1.1]">
                         Yeanul Haque Khan Akib
                     </h1>
                     <p className="text-xl md:text-3xl text-gray-300 mt-4 font-light drop-shadow-lg tracking-wide">

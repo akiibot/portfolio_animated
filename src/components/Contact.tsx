@@ -116,22 +116,31 @@ export default function Contact() {
 
                     {/* Right: Contact Details */}
                     <div className="flex flex-col gap-8 md:pl-12 justify-center">
-                        <a href="mailto:notfullyblissful@gmail.com" className="group flex items-center gap-6 text-lg md:text-xl font-light hover:text-white transition-colors text-gray-300 w-fit">
+                        <a href="mailto:yhk.akib12@gmail.com" className="group flex items-center gap-6 text-lg md:text-xl font-light hover:text-white transition-colors text-gray-300 w-fit">
                             <div className="shrink-0 p-4 bg-white/5 rounded-full group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300">
                                 <Mail className="w-6 h-6" />
                             </div>
-                            notfullyblissful@gmail.com
+                            yhk.akib12@gmail.com
                         </a>
 
-                        <a href="tel:+8801757404362" className="group flex items-center gap-6 text-lg md:text-xl font-light hover:text-white transition-colors text-gray-300 w-fit">
-                            <div className="shrink-0 p-4 bg-white/5 rounded-full group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300">
-                                <Phone className="w-6 h-6" />
-                            </div>
-                            +880 1757404362
-                        </a>
+                        <div className="flex gap-8">
+                            <a href="https://linkedin.com/in/akiiibot" target="_blank" rel="noreferrer" className="group flex items-center gap-4 text-lg font-light hover:text-white transition-colors text-gray-300 w-fit">
+                                <div className="shrink-0 p-4 bg-white/5 rounded-full group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300">
+                                    <Linkedin className="w-5 h-5" />
+                                </div>
+                                LinkedIn
+                            </a>
 
-                        <div className="flex items-center gap-6 text-lg md:text-xl font-light text-gray-400 mt-4">
-                            <div className="shrink-0 p-4 bg-dark rounded-full opacity-70">
+                            <a href="https://github.com/akiibot" target="_blank" rel="noreferrer" className="group flex items-center gap-4 text-lg font-light hover:text-white transition-colors text-gray-300 w-fit">
+                                <div className="shrink-0 p-4 bg-white/5 rounded-full group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300">
+                                    <Github className="w-5 h-5" />
+                                </div>
+                                GitHub
+                            </a>
+                        </div>
+
+                        <div className="flex items-center gap-6 text-lg md:text-xl font-light text-gray-400 mt-2">
+                            <div className="shrink-0 p-4 bg-white/5 rounded-full">
                                 <MapPin className="w-6 h-6" />
                             </div>
                             Mohammadpur, Dhaka - 1207, Bangladesh
@@ -141,19 +150,8 @@ export default function Contact() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-white/10 text-sm text-[#a1a1aa]">
+                <div className="flex justify-center items-center pt-8 border-t border-white/10 text-sm text-[#a1a1aa]">
                     <p>© {new Date().getFullYear()} Yeanul Haque Khan Akib. All rights reserved.</p>
-
-                    <div className="flex gap-6">
-                        <a href="https://linkedin.com/in/akiiibot" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
-                            <Linkedin className="w-4 h-4" />
-                            LinkedIn
-                        </a>
-                        <a href="https://github.com/akiibot" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
-                            <Github className="w-4 h-4" />
-                            GitHub
-                        </a>
-                    </div>
                 </div>
 
             </div>

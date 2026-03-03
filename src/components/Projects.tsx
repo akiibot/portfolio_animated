@@ -76,13 +76,7 @@ export default function Projects() {
                     ))}
                 </div>
 
-                <footer className="mt-32 pt-12 border-t border-white/10 text-center text-sm text-[#a1a1aa] flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p>© {new Date().getFullYear()} Yeanul Haque Khan Akib. All rights reserved.</p>
-                    <div className="flex gap-6">
-                        <a href="https://linkedin.com/in/akiiibot" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-                        <a href="https://github.com/akiibot" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GitHub</a>
-                    </div>
-                </footer>
+
 
             </div>
         </section>

@@ -111,8 +111,8 @@ export default function ScrollyCanvas() {
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 {!isLoaded && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-50 bg-[#121212]">
-                        <p className="text-[#a1a1aa] uppercase tracking-widest text-sm mb-4">Initializing Sequence</p>
-                        <div className="text-7xl md:text-9xl font-black tracking-tighter tabular-nums">
+                        <p className="text-[#a1a1aa] uppercase tracking-widest text-xs md:text-sm mb-4">Initializing Sequence</p>
+                        <div className="text-6xl md:text-9xl font-black tracking-tighter tabular-nums text-white">
                             {loadingProgress}%
                         </div>
                     </div>
