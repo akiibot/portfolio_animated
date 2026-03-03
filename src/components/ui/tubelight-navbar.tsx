@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import Link from "next/link"
 import { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -20,18 +19,6 @@ interface TubelightNavBarProps {
 
 export function TubelightNavBar({ items, className, children }: TubelightNavBarProps) {
     const [activeTab, setActiveTab] = useState(items[0].name)
-    const [isMobile, setIsMobile] = useState(false)
-
-    // Initialization and Resize listener
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768)
-        }
-
-        handleResize()
-        window.addEventListener("resize", handleResize)
-        return () => window.removeEventListener("resize", handleResize)
-    }, [])
 
     // Scroll Spy Logic
     useEffect(() => {
@@ -39,8 +26,6 @@ export function TubelightNavBar({ items, className, children }: TubelightNavBarP
         const targetSections = items.map(item => item.url.replace("#", ""))
 
         const callback = (entries: IntersectionObserverEntry[]) => {
-            let activeSet = false;
-
             // Look for intersecting items
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -48,7 +33,6 @@ export function TubelightNavBar({ items, className, children }: TubelightNavBarP
                     const matchingItem = items.find(i => i.url.replace("#", "") === entry.target.id)
                     if (matchingItem) {
                         setActiveTab(matchingItem.name)
-                        activeSet = true;
                     }
                 }
             });
