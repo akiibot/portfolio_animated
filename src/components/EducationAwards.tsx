@@ -1,2 +1,41 @@
-import {education,leadership} from '@/content/education';
-export default function EducationAwards(){return <section id="education" className="section wrap bordered-section"><div className="education-grid"><div><p className="eyebrow">04 / EDUCATION</p><h2>The foundations<span>.</span></h2><div className="education-list">{education.map(item=><article key={item.title}><p className="date-label">{item.date}</p><h3>{item.title}</h3><p>{item.school}</p><small>{item.detail}</small></article>)}</div></div><div><p className="eyebrow">BEYOND THE CODE</p><h2>People & community<span>.</span></h2><div className="education-list">{leadership.map(item=><article key={item.organization}><p className="date-label">{item.date}</p><h3>{item.role}</h3><p>{item.organization}</p><small>{item.detail}</small></article>)}</div></div></div></section>;}
+import { education, leadership } from "@/content/education";
+export default function EducationAwards() {
+  return (
+    <section id="education" className="section wrap bordered-section">
+      <div className="education-grid">
+        <div>
+          <p className="eyebrow">04 / EDUCATION</p>
+          <h2>
+            The foundations<span>.</span>
+          </h2>
+          <div className="education-list">
+            {education.map((item) => (
+              <article key={item.title}>
+                <p className="date-label">{item.date}</p>
+                <h3>{item.title}</h3>
+                <p>{item.school}</p>
+                <small>{item.detail}</small>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">BEYOND THE CODE</p>
+          <h2>
+            People & community<span>.</span>
+          </h2>
+          <div className="education-list">
+            {leadership.map((item) => (
+              <article key={item.organization}>
+                <p className="date-label">{item.date}</p>
+                <h3>{item.role}</h3>
+                <p>{item.organization}</p>
+                <small>{item.detail}</small>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,1 +1,23 @@
-export const experience=[{role:'AI Software Support',company:'Strontium Corporation',date:'2025 — Present',label:'Quality assurance & technical support · Remote',points:['Evaluate staging releases against production for Artistly.ai, VideoExpress.ai, and CloneVoice.ai.','Documented 50+ defects with reproduction steps and testing evidence; communicated 60+ product suggestions.','Support 50–60 users daily through Help Scout.']},{role:'Coding Instructor',company:'Dreamers Academy',date:'2026 — Present',label:'Python & Scratch',points:['Teach 120+ students aged 8–12 in live classes using Zoom and Replit.','Develop project-based lessons on variables, loops, and conditionals; lead trial classes.']}];
+export const experience = [
+  {
+    role: "AI Software Support",
+    company: "Strontium Corporation",
+    date: "2025 — Present",
+    label: "Quality assurance & technical support · Remote",
+    points: [
+      "Evaluate staging releases against production for Artistly.ai, VideoExpress.ai, and CloneVoice.ai.",
+      "Documented 50+ defects with reproduction steps and testing evidence; communicated 60+ product suggestions.",
+      "Support 50–60 users daily through Help Scout.",
+    ],
+  },
+  {
+    role: "Coding Instructor",
+    company: "Dreamers Academy",
+    date: "2026 — Present",
+    label: "Python & Scratch",
+    points: [
+      "Teach 120+ students aged 8–12 in live classes using Zoom and Replit.",
+      "Develop project-based lessons on variables, loops, and conditionals; lead trial classes.",
+    ],
+  },
+];

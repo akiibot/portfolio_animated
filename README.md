@@ -1,37 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Akib — Software Engineer & Product Builder
 
-## Getting Started
+Personal portfolio for Yeanul Haque Khan Akib. Next.js App Router, React, TypeScript and Tailwind CSS. Server-rendered content, six static case studies, and an optional progressively loaded canvas portrait sequence.
 
-First, run the development server:
+## Run locally
 
-```bash
+Use Node **22.19.0** (or a compatible newer release) and npm 10+.
+
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-#or 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://127.0.0.1:3000. To use another port: `npm run dev -- --port 3001`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For the production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+npm run build
+npm run start -- --port 3001
+```
 
-## Learn More
+Webpack is selected explicitly for predictable local builds; the app uses standard Next.js APIs. No database, AI keys or account credentials are needed. Contact uses the existing public Web3Forms integration. Configure a replacement provider access key in Contact.tsx if ownership changes; it is a public submission identifier, not a privileged API secret.
 
-To learn more about Next.js, take a look at the following resources:
+## Content and screenshots
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit `src/content/` for profile, projects, role attribution, experience, awards and education. Project routes are generated from records containing case-study content. Keep source/demo buttons accurate: sample dashboards and simulations must not be labeled live analysis. Never expose private source or claim that V1 screenshots show V2.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Real local screenshot assets live in `public/projects/captures/`; provenance and limitations are recorded in `docs/content-evidence.md`. Replace screenshots by adding a new asset and updating the relevant record. Use actual interface captures; no generated substitutes. The approved CV lives in `public/resume/`; add a newly dated file and update `profile.resume` when it changes.
 
-## Deploy on Vercel
+## Animation and caching
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The poster renders in HTML before JavaScript. Only the current/nearby frames load, with 4 desktop / 2 mobile concurrent requests and application-cache limits of 24 / 12 images. Reduced motion and detectable Save-Data start with a static portrait; Play motion explicitly opts in. Pausing clears queued work; in-flight images may finish. The browser may retain its own additional decoded/HTTP cache.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Original PNGs are unchanged. To regenerate versioned assets:
+
+```sh
+npm run prepare:sequence
+```
+
+The script hashes the ordered source bytes and copies them under `/sequence/<hash>/`, plus a separate `/hero/<hash>/poster.png`. Only these content-versioned paths receive one-year immutable caching. Never replace bytes under an existing hash; create a new version. Keep a previous deployment available for rollback. Compression and a new portrait remain optional choices; there is no lossy conversion in this update.
+
+## Checks
+
+```sh
+npm run lint
+npm run test:unit
+npm run build
+npm run typecheck
+npx playwright install chromium
+npm run test:e2e
+npm audit
+npm audit --omit=dev
+npm run check:links
+```
+
+For installed Google Chrome instead of Playwright's downloaded Chromium: `PORTFOLIO_BROWSER_CHANNEL=chrome npm run test:e2e`. Browser tests own **port 3100**, run against a production build and mock all contact-provider traffic. Keep an unrelated service off that port. For an explicitly selected existing server use `PORTFOLIO_TEST_URL=http://127.0.0.1:3001`; don't use that override for CI.
+
+The external-link report is manual and non-blocking because external sites can throttle or require login. It doesn't send forms or rewrite project statuses. CI runs lint, unit tests, build, typecheck and desktop/mobile browser journeys; no production secrets are required.
+
+## Release and rollback
+
+1. Run checks above and inspect desktop/mobile screenshots and all six project pages.
+2. Create a Vercel preview only when release work is authorized. `VERCEL_ENV=preview` produces noindex/nofollow metadata and disallows indexing in robots.txt; inspect the deployed HTML/header behavior.
+3. Check the actual preview's versioned image headers, resume, real screenshots and public project links. Provider delivery still needs a deliberately agreed real-message smoke test if desired.
+4. Publish only when authorized. Current canonical domain: https://akiibotportfolio.vercel.app.
+5. Smoke-check home, a case study, resume, sitemap, metadata and asset loading. Roll back by promoting the previous working Vercel deployment; do not overwrite old versioned assets or delete source images to “clear” caches.
+
+No production deployment is performed by the local implementation workflow. See `docs/qa/portfolio-release.md` for verified results and outstanding limitations.
