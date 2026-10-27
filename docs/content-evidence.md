@@ -19,3 +19,7 @@ Resume source: `/Users/yeanul/Downloads/Yeanul_Haque_Khan_Akib_CV_Redesigned (1)
 Screenshots are local project assets, not hotlinked. The owner later requested generated visuals when deployment screenshots are unavailable. Imprnt and ResearchLens V2 now use explicitly labeled AI-generated editorial cover illustrations. These are separate from the screenshots array and are never represented as app captures or generated product outputs. The earlier ResearchLens V1 interface is retained inside its story with its V1 caption. Prompts and saved asset paths are recorded in `docs/qa/generated-covers.md`. Original animation PNGs remain unchanged and recoverable. No watermarks were removed.
 
 External demos: only verified public Find My Paw, Jointly sample dashboard and LocalRelay simulation receive demo buttons. Vallet, Imprnt and ResearchLens V2 link to source/evidence until reliable public access is available. Link observations can go stale; rerun the link report before publishing.
+
+## Achievement photos added 28 October 2026
+
+The owner supplied nine original event photos/graphics, now copied unchanged into `public/awards/` and mapped in `src/content/award-photos.ts`. They confirmed the Best Camper/Best Team photo belongs to their Duke expedition. The supplied AI Buildfest graphic explicitly identifies Imprnt AI and Team Breaking BRAC as the MarTech winner; the NASA profile explicitly identifies CosmoScope and Team Vitruvian 6. See `qa/award-gallery-2026-10-28.md` and the integrity manifest for exact mapping and checks.

@@ -1,18 +1,18 @@
 export const awards = [
   {
     title: "Champion",
-    event: "The Infinity AI Buildfest · MarTech",
-    detail: "Team lead",
+    event: "The Infinity AI Buildfest 2026 · MarTech",
+    detail: "Imprnt AI · Team Breaking BRAC · Team lead",
   },
   {
     title: "Global Finalist",
     event: "NASA Space Apps Challenge 2025",
-    detail: "Team lead",
+    detail: "CosmoScope · Team Vitruvian 6 · Team lead",
   },
   {
     title: "Champion",
     event: "12th IUT ICT Fest 2026 · GameJam",
-    detail: "Game development",
+    detail: "Team Oranges · Game development",
   },
   {
     title: "Champion",

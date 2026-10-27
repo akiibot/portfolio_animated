@@ -1,13 +1,19 @@
+import AwardPhotoGallery from "./AwardPhotoGallery";
+import { awardAlbums } from "@/content/award-photos";
 import { awards } from "@/content/awards";
 import { Trophy, ArrowUpRight } from "lucide-react";
 export default function Achievements() {
   return (
-    <section className="achievements-band">
+    <section
+      id="achievements"
+      className="achievements-band"
+      aria-labelledby="achievements-title"
+    >
       <div className="wrap">
         <div className="section-heading">
           <div>
             <p className="eyebrow">RECOGNITION</p>
-            <h2>
+            <h2 id="achievements-title">
               Built. Tested. Recognized<span>.</span>
             </h2>
           </div>
@@ -26,6 +32,7 @@ export default function Achievements() {
             </div>
           ))}
         </div>
+        <AwardPhotoGallery albums={awardAlbums} />
       </div>
     </section>
   );

@@ -46,7 +46,7 @@ Final medians: cold LCP 652ms / warm 340ms; CLS approximately 0.00117 / 0.000116
 
 - No GitHub push, merge, Vercel preview or production publication was performed. CI is configured but has not run on GitHub. Verify actual deployed headers and noindex behavior on a release preview before publishing.
 - External demo reliability remains separate project work: Vallet session readiness, Imprnt hosting and a public ResearchLens V2 URL. Their unavailable/protected destinations are not presented as live app buttons.
-- Award/certificate/event photos have not yet been supplied. The achievements content is ready; add real owner-provided images with event/year captions when received. Do not fabricate award evidence.
+- Update 28 October: nine supplied event photographs are now included in five albums. See `award-gallery-2026-10-28.md` for the follow-up validation and source mapping.
 - Original animation quality is preserved. Optional lossy format comparisons remain a separate owner decision. The generated project covers do not change the animation assets.
 - Browser checks use installed Chrome with desktop/mobile emulation. They are not a full Safari/device/screen-reader certification or an exact OS/browser 200% zoom audit; short-height/reflow and keyboard-ready controls were inspected.
 - ESLint 9 is pinned to satisfy current Next plugin peers; the registry marks that development-tool major deprecated. No unsupported peer override was used. Revisit when the plugin set supports the newer major.

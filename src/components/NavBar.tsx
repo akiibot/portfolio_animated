@@ -19,6 +19,7 @@ export default function NavBar() {
     const ids = [
       "home",
       "projects",
+      "achievements",
       "about",
       "experience",
       "education",

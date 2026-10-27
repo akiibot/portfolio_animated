@@ -10,7 +10,7 @@ const urls = [
         p.demo?.url,
         ...(p.caseStudy?.evidence.map((e) => e.url) || []),
       ]),
-    ].filter(Boolean),
+    ].filter((url) => typeof url === "string" && /^https?:\/\//.test(url)),
   ),
 ];
 const report = [];

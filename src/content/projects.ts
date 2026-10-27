@@ -188,6 +188,8 @@ const portfolioProjects: readonly Project[] = [
     sourceUrl: "https://github.com/akiibot/inprnt-ai",
     screenshots: [],
     caseStudy: {
+      outcome:
+        "Champion in Branding & Marketing (MarTech) at The Infinity AI Buildfest 2026, as Team Breaking BRAC.",
       problem:
         "Generated campaign images need recognizable brand styling and readable Bangla and English text across several formats.",
       contribution:
@@ -203,6 +205,10 @@ const portfolioProjects: readonly Project[] = [
         {
           label: "Source and architecture",
           url: "https://github.com/akiibot/inprnt-ai",
+        },
+        {
+          label: "AI Buildfest winner announcement",
+          url: "/awards/buildfest-announcement.jpg",
         },
       ],
       limitations: [

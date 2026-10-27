@@ -1,0 +1,56 @@
+[
+  {
+    "source": "AI BUILDFEST.jpg",
+    "asset": "/awards/buildfest-trophy.jpg",
+    "bytes": 366924,
+    "sha256": "98677e96a6cff873324ea26556c72ed204da9932e7c8f2bf8f351f4627558cff"
+  },
+  {
+    "source": "AI BUILDFEST .jpg",
+    "asset": "/awards/buildfest-announcement.jpg",
+    "bytes": 159317,
+    "sha256": "b3c8d4a3a913070656dad4fcc4cd0ef5283e5d2e553c55457583d179a4dc3c36"
+  },
+  {
+    "source": "AI BUILDFEST 2.jpeg",
+    "asset": "/awards/buildfest-team.jpeg",
+    "bytes": 173932,
+    "sha256": "de266ca27f38c0da605c2a2ee67daf895233b6a551719d3fc973e4a702c6fab5"
+  },
+  {
+    "source": "Duke of Edinburg.jpg",
+    "asset": "/awards/duke-expedition.jpg",
+    "bytes": 252050,
+    "sha256": "12b7487b18a2e0188a5c0e3f09c73d586a54852f3841bd85b7b57dd58725429a"
+  },
+  {
+    "source": "IUT GAMEJAM.jpg",
+    "asset": "/awards/iut-gamejam-trophy.jpg",
+    "bytes": 211705,
+    "sha256": "37603b15482e26bce096f4b835cbf25e06f68e311d352223fb56753dad1ec49d"
+  },
+  {
+    "source": "IUT GAMEJAM2.jpg",
+    "asset": "/awards/iut-gamejam-team.jpg",
+    "bytes": 339274,
+    "sha256": "d7d49e3353d3239c463f44f98621471403a7eeae817fc02458175412dff595a1"
+  },
+  {
+    "source": "NASA .jpg",
+    "asset": "/awards/nasa-finalist-announcement.jpg",
+    "bytes": 213760,
+    "sha256": "7a65bcfc8f83d519934ce0db4019893e9ce8e261176be105c0b4f0667f45477b"
+  },
+  {
+    "source": "NASA2.jpg",
+    "asset": "/awards/nasa-team-profile.jpg",
+    "bytes": 118081,
+    "sha256": "380ecd9a11c743b4480e694168ba334638a7fa0a6734341d256483a5bf9dbf91"
+  },
+  {
+    "source": "Prompt Engineering Comp.jpg",
+    "asset": "/awards/prompt-engineering-champion.jpg",
+    "bytes": 180013,
+    "sha256": "0da3f4903e25520b5045904148082b21da9194b90f06041524c4cbe8b6ee0be7"
+  }
+]

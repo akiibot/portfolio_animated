@@ -24,7 +24,7 @@ Webpack is selected explicitly for predictable local builds; the app uses standa
 
 ## Content and screenshots
 
-Edit `src/content/` for profile, projects, role attribution, experience, awards and education. Project routes are generated from records containing case-study content. Keep source/demo buttons accurate: sample dashboards and simulations must not be labeled live analysis. Never expose private source or claim that V1 screenshots show V2.
+Edit `src/content/` for profile, projects, role attribution, experience, awards and education. Event albums and photo captions are in `src/content/award-photos.ts`, with originals in `public/awards/`; keep complete originals available through the viewer. Project routes are generated from records containing case-study content. Keep source/demo buttons accurate: sample dashboards and simulations must not be labeled live analysis. Never expose private source or claim that V1 screenshots show V2.
 
 Real local screenshot assets live in `public/projects/captures/`; provenance and limitations are recorded in `docs/content-evidence.md`. Replace screenshots by adding a new asset and updating the relevant record. Use actual interface captures where available. Owner-approved conceptual covers belong in the separate `cover` field and must be labeled as illustrations, never fabricated screenshots. The approved CV lives in `public/resume/`; add a newly dated file and update `profile.resume` when it changes.
 
