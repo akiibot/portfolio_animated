@@ -14,67 +14,67 @@
     {
       "run": 1,
       "visit": "cold",
-      "lcp": 1072,
+      "lcp": 812,
       "cls": 0.0011692262796683672,
       "sequenceRequests": 3,
       "sequenceTransferred": 1400231,
-      "totalResourceTransferred": 2152104
+      "totalResourceTransferred": 2257938
     },
     {
       "run": 1,
       "visit": "warm",
-      "lcp": 424,
+      "lcp": 420,
       "cls": 0.00011588294871218941,
       "sequenceRequests": 3,
       "sequenceTransferred": 0,
-      "totalResourceTransferred": 8967
+      "totalResourceTransferred": 9613
     },
     {
       "run": 2,
       "visit": "cold",
-      "lcp": 1812,
+      "lcp": 644,
       "cls": 0.0011692262796683672,
       "sequenceRequests": 3,
       "sequenceTransferred": 1400231,
-      "totalResourceTransferred": 2152104
+      "totalResourceTransferred": 2257938
     },
     {
       "run": 2,
       "visit": "warm",
-      "lcp": 440,
+      "lcp": 292,
       "cls": 0.00011588294871218941,
       "sequenceRequests": 3,
       "sequenceTransferred": 0,
-      "totalResourceTransferred": 8967
+      "totalResourceTransferred": 9613
     },
     {
       "run": 3,
       "visit": "cold",
-      "lcp": 688,
+      "lcp": 652,
       "cls": 0.0011692262796683672,
       "sequenceRequests": 3,
       "sequenceTransferred": 1400231,
-      "totalResourceTransferred": 2152104
+      "totalResourceTransferred": 2257938
     },
     {
       "run": 3,
       "visit": "warm",
-      "lcp": 336,
+      "lcp": 340,
       "cls": 0.00011588294871218941,
       "sequenceRequests": 3,
       "sequenceTransferred": 0,
-      "totalResourceTransferred": 8967
+      "totalResourceTransferred": 9613
     }
   ],
   "medians": {
     "cold": {
-      "lcpMs": 1072,
+      "lcpMs": 652,
       "cls": 0.0011692262796683672,
       "sequenceRequests": 3,
       "sequenceTransferred": 1400231
     },
     "warm": {
-      "lcpMs": 424,
+      "lcpMs": 340,
       "cls": 0.00011588294871218941,
       "sequenceRequests": 3,
       "sequenceTransferred": 0
