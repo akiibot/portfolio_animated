@@ -30,6 +30,7 @@ export type Project = {
     checkedAt: string;
   };
   screenshots: Screenshot[];
+  cover?: Screenshot;
   caseStudy?: CaseStudy;
   accent: string;
   number: string;

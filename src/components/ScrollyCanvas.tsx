@@ -22,7 +22,12 @@ function subscribe(callback: () => void) {
 }
 export default function ScrollyCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mode = useSyncExternalStore(subscribe, preference, () => "static");
+  const initialPreferenceResolved = useRef(false);
+  const mode = useSyncExternalStore<string>(
+    subscribe,
+    preference,
+    () => "unknown",
+  );
   const [choice, setChoice] = useState<"auto" | "play" | "pause">("auto");
   const enabled =
     choice === "play" || (choice === "auto" && mode === "animate");
@@ -87,8 +92,9 @@ export default function ScrollyCanvas() {
     };
     const resize = () => {
       const dpr = Math.min(devicePixelRatio || 1, mobile ? 1 : 1.5);
-      canvas.width = Math.round(innerWidth * dpr);
-      canvas.height = Math.round(innerHeight * dpr);
+      const bounds = canvas.getBoundingClientRect();
+      canvas.width = Math.round(bounds.width * dpr);
+      canvas.height = Math.round(bounds.height * dpr);
       schedule();
       update();
     };
@@ -97,6 +103,8 @@ export default function ScrollyCanvas() {
       update();
     });
     observer.observe(hero);
+    const sizeObserver = new ResizeObserver(resize);
+    sizeObserver.observe(canvas);
     addEventListener("scroll", update, { passive: true });
     addEventListener("resize", resize);
     document.addEventListener("visibilitychange", update);
@@ -105,6 +113,7 @@ export default function ScrollyCanvas() {
       disposed = true;
       cancelAnimationFrame(raf);
       observer.disconnect();
+      sizeObserver.disconnect();
       loader.dispose();
       removeEventListener("scroll", update);
       removeEventListener("resize", resize);
@@ -114,11 +123,29 @@ export default function ScrollyCanvas() {
   }, [enabled]);
   useEffect(() => {
     const hero = document.getElementById("home");
-    if (hero) hero.dataset.animated = String(enabled);
+    if (!hero || mode === "unknown") return;
+    hero.dataset.static = String(mode === "static" && choice !== "play");
+    let frame = 0;
+    if (!initialPreferenceResolved.current) {
+      initialPreferenceResolved.current = true;
+      if (location.hash && location.hash !== "#home") {
+        frame = requestAnimationFrame(() => {
+          let id: string;
+          try {
+            id = decodeURIComponent(location.hash.slice(1));
+          } catch {
+            return;
+          }
+          document
+            .getElementById(id)
+            ?.scrollIntoView({ behavior: "instant", block: "start" });
+        });
+      }
+    }
     return () => {
-      if (hero) delete hero.dataset.animated;
+      cancelAnimationFrame(frame);
     };
-  }, [enabled]);
+  }, [mode, choice]);
   return (
     <>
       <canvas ref={canvasRef} className="hero-canvas" aria-hidden="true" />

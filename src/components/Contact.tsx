@@ -75,6 +75,13 @@ export default function Contact() {
             </div>
             <p className="contact-location">{profile.location}</p>
           </div>
+          <noscript>
+            <style>{"#contact form { display: none; }"}</style>
+            <p className="contact-intro">
+              The form needs JavaScript. Please use the email link to contact me
+              directly.
+            </p>
+          </noscript>
           <form
             onSubmit={submit}
             onChange={() => {
@@ -86,6 +93,7 @@ export default function Contact() {
                 <label htmlFor="name">Name</label>
                 <input
                   id="name"
+                  disabled={status === "submitting"}
                   name="name"
                   autoComplete="name"
                   required
@@ -97,6 +105,7 @@ export default function Contact() {
                 <label htmlFor="email">Email</label>
                 <input
                   id="email"
+                  disabled={status === "submitting"}
                   name="email"
                   type="email"
                   autoComplete="email"
@@ -109,6 +118,7 @@ export default function Contact() {
             <label htmlFor="message">Message</label>
             <textarea
               id="message"
+              disabled={status === "submitting"}
               name="message"
               required
               rows={5}

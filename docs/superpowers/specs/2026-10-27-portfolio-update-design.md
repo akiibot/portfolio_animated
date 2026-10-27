@@ -1,6 +1,6 @@
 # Portfolio update: proposed design and complete change list
 
-Status: proposal for review, not approval to implement or publish. Audience confirmed by owner: full-stack/software engineering employers. Date: 27 October 2026.
+Status: locally implemented after owner approval on 27 October 2026. Production publication was not requested. Audience confirmed by owner: full-stack/software engineering employers. Date: 27 October 2026.
 
 ## Intent
 
@@ -14,7 +14,7 @@ Inputs: existing Next.js source, [initial audit](../../../../PORTFOLIO_REVIEW.md
 2. **Full visual rebuild.** Could deliver a different identity, but introduces unnecessary layout and framework migration risk before the current content is fixed.
 3. **Static portrait only.** Simplest and cheapest to deliver; retain this as the accessible/data-saving fallback. It gives up the animation the current site is built around.
 
-The owner has not selected a redesign approach. This proposal develops option 1 as the recommended default; no product implementation begins in this planning task.
+The owner authorized implementation of the recommended option 1 after reviewing the plan. The subsequent request explicitly permitted generated illustrations where deployed screenshots were unavailable.
 
 ## Page and content proposal
 

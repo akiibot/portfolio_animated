@@ -31,11 +31,11 @@ test("has accessible mobile navigation, no horizontal overflow, and working proj
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.goto("/projects/find-my-paw");
+  await page.goto("/projects/find-my-paw", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Find My Paw",
   );
-  await page.goto("/projects/not-a-project");
+  await page.goto("/projects/not-a-project", { waitUntil: "domcontentloaded" });
   await expect(
     page.getByRole("heading", { name: "Page not found." }),
   ).toBeVisible();
@@ -226,4 +226,102 @@ test("small screens retain navigation and do not overflow", async ({
       });
     }
   }
+});
+
+test("short viewports keep the canvas bitmap at the displayed aspect ratio", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 600 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("canvas[data-ready=true]")).toBeVisible();
+  const mismatch = await page.locator("canvas").evaluate((node) => {
+    const canvas = node as HTMLCanvasElement;
+    const rect = canvas.getBoundingClientRect();
+    return Math.abs(canvas.width / canvas.height - rect.width / rect.height);
+  });
+  expect(mismatch).toBeLessThan(0.005);
+});
+
+test("contact protects the submitted draft while a request is pending", async ({
+  page,
+}) => {
+  let release!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("https://api.web3forms.com/submit", async (route) => {
+    await pending;
+    await route.fulfill({ json: { success: true } });
+  });
+  await page.goto("/#contact");
+  await page.getByLabel("Name", { exact: true }).fill("Test");
+  await page.getByLabel("Email", { exact: true }).fill("test@example.com");
+  await page
+    .getByLabel("Message", { exact: true })
+    .fill("My submitted message");
+  await page.getByRole("button", { name: /^Send message$/i }).click();
+  await expect(page.getByLabel("Message", { exact: true })).toBeDisabled();
+  release();
+  await expect(page.getByRole("status")).toContainText("Message sent");
+  await expect(page.getByLabel("Message", { exact: true })).toBeEnabled();
+});
+
+test("without JavaScript contact directs visitors to email instead of an unsafe GET form", async ({
+  browser,
+  baseURL,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    baseURL,
+  });
+  const page = await context.newPage();
+  await page.goto("/#contact");
+  await expect(page.locator("#contact form")).not.toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "yhk.akib12@gmail.com", exact: true }),
+  ).toBeVisible();
+  await context.close();
+});
+
+test("direct project anchors remain aligned after hero hydration", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/#projects");
+  await expect(
+    page.getByRole("button", { name: "Pause animation" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Selected work." }),
+  ).toBeInViewport();
+});
+
+test("pausing motion does not collapse the hero and move the page", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(
+    page.getByRole("button", { name: "Pause animation" }),
+  ).toBeVisible();
+  const before = await page
+    .locator("#home")
+    .evaluate((node) => node.getBoundingClientRect().height);
+  await page.getByRole("button", { name: "Pause animation" }).click();
+  const after = await page
+    .locator("#home")
+    .evaluate((node) => node.getBoundingClientRect().height);
+  expect(after).toBe(before);
+});
+
+test("lightweight real captures use their direct JPEG URL without runtime transformation", async ({
+  page,
+}) => {
+  await page.goto("/projects/find-my-paw", { waitUntil: "domcontentloaded" });
+  await expect(
+    page.getByRole("img", {
+      name: "Find My Paw deployed landing page with QR pet identification",
+    }),
+  ).toHaveAttribute("src", "/projects/captures/find-my-paw.jpg");
 });

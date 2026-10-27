@@ -1,0 +1,83 @@
+{
+  "profile": {
+    "url": "http://127.0.0.1:3001",
+    "viewport": "390x844",
+    "browser": "Chromium",
+    "latencyMs": 150,
+    "downloadMbps": 1.6,
+    "cpuSlowdown": 4,
+    "observation": "load event plus four seconds",
+    "date": "2026-10-27",
+    "note": "Candidate only; no equivalent original-production timing baseline. LCP/CLS from browser PerformanceObserver, not a Lighthouse or field score."
+  },
+  "samples": [
+    {
+      "run": 1,
+      "visit": "cold",
+      "lcp": 1072,
+      "cls": 0.0011692262796683672,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 1400231,
+      "totalResourceTransferred": 2152104
+    },
+    {
+      "run": 1,
+      "visit": "warm",
+      "lcp": 424,
+      "cls": 0.00011588294871218941,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 0,
+      "totalResourceTransferred": 8967
+    },
+    {
+      "run": 2,
+      "visit": "cold",
+      "lcp": 1812,
+      "cls": 0.0011692262796683672,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 1400231,
+      "totalResourceTransferred": 2152104
+    },
+    {
+      "run": 2,
+      "visit": "warm",
+      "lcp": 440,
+      "cls": 0.00011588294871218941,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 0,
+      "totalResourceTransferred": 8967
+    },
+    {
+      "run": 3,
+      "visit": "cold",
+      "lcp": 688,
+      "cls": 0.0011692262796683672,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 1400231,
+      "totalResourceTransferred": 2152104
+    },
+    {
+      "run": 3,
+      "visit": "warm",
+      "lcp": 336,
+      "cls": 0.00011588294871218941,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 0,
+      "totalResourceTransferred": 8967
+    }
+  ],
+  "medians": {
+    "cold": {
+      "lcpMs": 1072,
+      "cls": 0.0011692262796683672,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 1400231
+    },
+    "warm": {
+      "lcpMs": 424,
+      "cls": 0.00011588294871218941,
+      "sequenceRequests": 3,
+      "sequenceTransferred": 0
+    }
+  }
+}

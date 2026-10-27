@@ -4,20 +4,28 @@ import { ArrowUpRight, GitBranch, Layers } from "lucide-react";
 import type { Project } from "@/content/types";
 import { demoLabel } from "@/content/projects";
 export default function ProjectCard({ project }: { project: Project }) {
-  const screenshot = project.screenshots[0];
+  const screenshot = project.cover ?? project.screenshots[0];
   const detail = !!project.caseStudy;
   return (
     <article className={`project-card accent-${project.accent}`}>
       <div className="project-preview">
         {screenshot ? (
           <>
-            <div className="preview-chrome">
+            <div
+              className={
+                project.cover
+                  ? "preview-chrome preview-illustration"
+                  : "preview-chrome"
+              }
+            >
               <span>
                 <i />
                 <i />
                 <i />
               </span>
-              <span>{project.name}</span>
+              <span>
+                {project.cover ? "PROJECT ILLUSTRATION" : project.name}
+              </span>
               <ArrowUpRight size={12} />
             </div>
             <div className="preview-image">
@@ -31,6 +39,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                     src={screenshot.src}
                     alt={screenshot.alt}
                     fill
+                    unoptimized={!project.cover}
                     sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1280px) 45vw, 550px"
                   />
                 </Link>
@@ -39,6 +48,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                   src={screenshot.src}
                   alt={screenshot.alt}
                   fill
+                  unoptimized={!project.cover}
                   sizes="(max-width: 767px) calc(100vw - 40px), 45vw"
                 />
               )}

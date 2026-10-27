@@ -6,6 +6,9 @@ import { profile } from "@/content/profile";
 export default function Hero() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
+      <noscript>
+        <style>{"#home { height: 100svh; }"}</style>
+      </noscript>
       <div className="hero-sticky">
         <Image
           className="hero-poster"

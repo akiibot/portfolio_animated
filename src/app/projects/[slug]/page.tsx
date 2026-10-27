@@ -33,6 +33,7 @@ export default async function ProjectPage({ params }: Props) {
   const project = getProjectBySlug(slug);
   if (!project?.caseStudy) notFound();
   const story = project.caseStudy;
+  const heroImage = project.cover ?? project.screenshots[0];
   return (
     <main id="main-content" className={`case-page accent-${project.accent}`}>
       <div className="wrap">
@@ -88,17 +89,18 @@ export default async function ProjectPage({ params }: Props) {
             <p>{project.status}</p>
           </div>
         </div>
-        {project.screenshots[0] && (
+        {heroImage && (
           <figure className="case-main-image">
             <Image
-              src={project.screenshots[0].src}
-              alt={project.screenshots[0].alt}
-              width={project.screenshots[0].width}
-              height={project.screenshots[0].height}
+              src={heroImage.src}
+              unoptimized={!project.cover}
+              alt={heroImage.alt}
+              width={heroImage.width}
+              height={heroImage.height}
               sizes="(max-width: 1200px) 100vw, 1120px"
               priority
             />
-            <figcaption>{project.screenshots[0].caption}</figcaption>
+            <figcaption>{heroImage.caption}</figcaption>
           </figure>
         )}
         <div className="case-content">
@@ -132,10 +134,11 @@ export default async function ProjectPage({ params }: Props) {
                 ))}
               </ul>
             </section>
-            {project.screenshots.slice(1).map((image) => (
+            {project.screenshots.slice(project.cover ? 0 : 1).map((image) => (
               <figure key={image.src}>
                 <Image
                   src={image.src}
+                  unoptimized
                   alt={image.alt}
                   width={image.width}
                   height={image.height}

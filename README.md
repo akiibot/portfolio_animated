@@ -26,11 +26,11 @@ Webpack is selected explicitly for predictable local builds; the app uses standa
 
 Edit `src/content/` for profile, projects, role attribution, experience, awards and education. Project routes are generated from records containing case-study content. Keep source/demo buttons accurate: sample dashboards and simulations must not be labeled live analysis. Never expose private source or claim that V1 screenshots show V2.
 
-Real local screenshot assets live in `public/projects/captures/`; provenance and limitations are recorded in `docs/content-evidence.md`. Replace screenshots by adding a new asset and updating the relevant record. Use actual interface captures; no generated substitutes. The approved CV lives in `public/resume/`; add a newly dated file and update `profile.resume` when it changes.
+Real local screenshot assets live in `public/projects/captures/`; provenance and limitations are recorded in `docs/content-evidence.md`. Replace screenshots by adding a new asset and updating the relevant record. Use actual interface captures where available. Owner-approved conceptual covers belong in the separate `cover` field and must be labeled as illustrations, never fabricated screenshots. The approved CV lives in `public/resume/`; add a newly dated file and update `profile.resume` when it changes.
 
 ## Animation and caching
 
-The poster renders in HTML before JavaScript. Only the current/nearby frames load, with 4 desktop / 2 mobile concurrent requests and application-cache limits of 24 / 12 images. Reduced motion and detectable Save-Data start with a static portrait; Play motion explicitly opts in. Pausing clears queued work; in-flight images may finish. The browser may retain its own additional decoded/HTTP cache.
+The poster renders in HTML before JavaScript. Only the current/nearby frames load, with 4 desktop / 2 mobile concurrent requests and application-cache limits of 24 / 12 images. Reduced motion and detectable Save-Data start with a static portrait; Play motion explicitly opts in. Pausing stops queued work without collapsing the reserved hero layout; in-flight images may finish. Direct section links are realigned after initial motion preferences resolve. The browser may retain its own additional decoded/HTTP cache.
 
 Original PNGs are unchanged. To regenerate versioned assets:
 
@@ -52,6 +52,8 @@ npm run test:e2e
 npm audit
 npm audit --omit=dev
 npm run check:links
+# Optional three-run candidate-only cold/warm lab sample:
+PORTFOLIO_BROWSER_CHANNEL=chrome node scripts/measure-performance.mjs
 ```
 
 For installed Google Chrome instead of Playwright's downloaded Chromium: `PORTFOLIO_BROWSER_CHANNEL=chrome npm run test:e2e`. Browser tests own **port 3100**, run against a production build and mock all contact-provider traffic. Keep an unrelated service off that port. For an explicitly selected existing server use `PORTFOLIO_TEST_URL=http://127.0.0.1:3001`; don't use that override for CI.

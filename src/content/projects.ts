@@ -27,12 +27,12 @@ const portfolioProjects: readonly Project[] = [
     },
     screenshots: [
       capture(
-        "find-my-paw.png",
+        "find-my-paw.jpg",
         "Find My Paw deployed landing page with QR pet identification",
         "Public product landing page · captured October 2026",
       ),
       capture(
-        "find-my-paw-process.png",
+        "find-my-paw-process.jpg",
         "Find My Paw explaining the scan-to-contact process",
         "The three-step product journey on the deployed site",
       ),
@@ -105,12 +105,12 @@ const portfolioProjects: readonly Project[] = [
     },
     screenshots: [
       capture(
-        "jointly.png",
+        "jointly.jpg",
         "Jointly deployed sample evidence dashboard",
         "Deployed sample dashboard · historical bundled evidence",
       ),
       capture(
-        "jointly-investigation.png",
+        "jointly-investigation.jpg",
         "Jointly interaction-test investigation and failure evidence",
         "The documented coupon and payment-retry collision",
       ),
@@ -162,12 +162,12 @@ const portfolioProjects: readonly Project[] = [
     },
     screenshots: [
       capture(
-        "localrelay.png",
+        "localrelay.jpg",
         "LocalRelay deployed two-phone simulated SMS demo",
         "Interactive demo · no real SMS is sent",
       ),
       capture(
-        "localrelay-workflow.png",
+        "localrelay-workflow.jpg",
         "LocalRelay visitor enquiry appearing on the simulated operator phone",
         "Reviewed Bangla enquiry in the simulated workflow",
       ),
@@ -207,7 +207,7 @@ const portfolioProjects: readonly Project[] = [
       ],
       limitations: [
         "The listed public deployment was unavailable at review.",
-        "No product screenshot is substituted with an invented mockup; the card uses a labeled architecture illustration.",
+        "The editorial cover is an illustration of the workflow, not an app screenshot or an actual campaign output.",
       ],
     },
   },
@@ -226,7 +226,7 @@ const portfolioProjects: readonly Project[] = [
     sourceUrl: "https://github.com/akiibot/researchLensV2",
     screenshots: [
       capture(
-        "researchlens-v1.png",
+        "researchlens-v1.jpg",
         "Earlier ResearchLens V1 public interface with research-idea form",
         "Earlier public interface (V1) · not a V2 deployment capture",
       ),
@@ -364,10 +364,29 @@ const teamNotes: Record<string, NonNullable<Project["caseStudy"]>> = {
     ],
   },
 };
+const generatedCovers: Record<string, Screenshot> = {
+  "imprnt-ai": {
+    src: "/projects/covers/imprnt-editorial.png",
+    alt: "Editorial illustration of coordinated campaign poster formats for Imprnt AI",
+    width: 1672,
+    height: 941,
+    caption:
+      "AI-generated project illustration · not an app screenshot or actual campaign output",
+  },
+  researchlens: {
+    src: "/projects/covers/researchlens-editorial.png",
+    alt: "Editorial illustration of research papers and a lens highlighting a research gap",
+    width: 1672,
+    height: 941,
+    caption:
+      "AI-generated project illustration · not a ResearchLens V2 screenshot",
+  },
+};
 export const projects: readonly Project[] = portfolioProjects.map(
   (project) => ({
     ...project,
     role: "Lead architect & developer",
+    cover: generatedCovers[project.slug],
     caseStudy: project.caseStudy ?? teamNotes[project.slug],
   }),
 );

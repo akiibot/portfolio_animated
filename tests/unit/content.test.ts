@@ -16,3 +16,14 @@ it("curates six unique primary/secondary projects and never invents a live app",
       expect(u).toMatch(/^https:\/\//);
   }
 });
+it("labels generated covers as illustrations and keeps them separate from screenshots", () => {
+  for (const slug of ["imprnt-ai", "researchlens"]) {
+    const project = getProjectBySlug(slug)!;
+    expect(project.cover).toBeTruthy();
+    expect(project.cover?.caption).toContain("AI-generated");
+    expect(project.cover?.caption).toContain("illustration");
+    expect(
+      project.screenshots.some((image) => image.src === project.cover?.src),
+    ).toBe(false);
+  }
+});
