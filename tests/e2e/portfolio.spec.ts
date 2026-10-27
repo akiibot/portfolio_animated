@@ -130,7 +130,7 @@ test("all six case studies and sitemap render with correct metadata", async ({
     "jointly",
     "localrelay",
     "imprnt-ai",
-    "researchlens",
+    "now-todays-news",
   ]) {
     await page.goto("/projects/" + slug);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile";
 const items = [
   { label: "Work", id: "projects" },
-  { label: "About", id: "about" },
   { label: "Experience", id: "experience" },
+  { label: "About", id: "about" },
   { label: "Contact", id: "contact" },
 ];
 export default function NavBar() {
@@ -19,9 +19,9 @@ export default function NavBar() {
     const ids = [
       "home",
       "projects",
-      "achievements",
-      "about",
       "experience",
+      "about",
+      "achievements",
       "education",
       "contact",
     ];

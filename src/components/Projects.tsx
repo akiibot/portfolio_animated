@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/content/projects";
 import ProjectCard from "./ProjectCard";
+import ProjectDemo from "./ProjectDemo";
 export default function Projects() {
   return (
     <section
@@ -43,14 +44,17 @@ export default function Projects() {
         {projects
           .filter((p) => p.placement === "additional")
           .map((p) => (
-            <a key={p.slug} href={p.sourceUrl} target="_blank" rel="noreferrer">
-              <span>
-                {p.name}
-                <small>{p.category}</small>
-              </span>
-              <span className="additional-summary">{p.summary}</span>
-              <ArrowUpRight size={19} />
-            </a>
+            <article key={p.slug}>
+              <a href={p.sourceUrl} target="_blank" rel="noreferrer">
+                <span>
+                  {p.name}
+                  <small>{p.category}</small>
+                </span>
+                <span className="additional-summary">{p.summary}</span>
+                <ArrowUpRight size={19} />
+              </a>
+              {p.video && <ProjectDemo name={p.name} video={p.video} />}
+            </article>
           ))}
       </div>
     </section>

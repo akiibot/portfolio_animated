@@ -72,6 +72,7 @@ const portfolioProjects: readonly Project[] = [
     placement: "primary",
     accent: "sand",
     sourceUrl: "https://github.com/akiibot/vallet",
+    video: { kind: "youtube", id: "oH30ok8yAMM" },
     screenshots: [
       capture(
         "vallet-recorded-home.jpg",
@@ -98,6 +99,7 @@ const portfolioProjects: readonly Project[] = [
     placement: "primary",
     accent: "lavender",
     sourceUrl: "https://github.com/akiibot/jointly",
+    video: { kind: "file", src: "/projects/videos/jointly-demo.mp4" },
     demo: {
       url: "https://jointly-ai-merge.vercel.app/",
       kind: "sample-dashboard",
@@ -186,6 +188,7 @@ const portfolioProjects: readonly Project[] = [
     placement: "secondary",
     accent: "rose",
     sourceUrl: "https://github.com/akiibot/inprnt-ai",
+    video: { kind: "youtube", id: "Tb8ayU6DSDo" },
     screenshots: [],
     caseStudy: {
       outcome:
@@ -218,46 +221,67 @@ const portfolioProjects: readonly Project[] = [
     },
   },
   {
-    slug: "researchlens",
-    name: "ResearchLens V2",
+    slug: "now-todays-news",
+    name: "Now Today’s News",
     number: "06",
-    category: "Research tooling",
+    category: "Game development · IUT GameJam winner",
     summary:
-      "From a thesis idea to related papers, research-gap dimensions, and potential supervisors—with evidence in view.",
-    stack: ["Next.js", "TypeScript", "Supabase", "Gemini / Vertex AI"],
-    role: "Developer",
-    status: "prototype",
+      "Arrange the news. Change the city. A narrative puzzle game where each broadcast shapes what happens next.",
+    stack: ["Godot 4", "GDScript", "Narrative systems"],
+    role: "Game development contributor",
+    status: "hackathon",
     placement: "secondary",
     accent: "blue",
-    sourceUrl: "https://github.com/akiibot/researchLensV2",
+    sourceUrl: "https://github.com/Alfa5nm/TrioJam",
+    demo: {
+      url: "https://notfullyblissful.itch.io/now-todays-news",
+      kind: "downloadable-game",
+      checkedAt: "2026-10-28",
+    },
+    video: { kind: "youtube", id: "fYtWlmTALKk" },
     screenshots: [
-      capture(
-        "researchlens-v1.jpg",
-        "Earlier ResearchLens V1 public interface with research-idea form",
-        "Earlier public interface (V1) · not a V2 deployment capture",
-      ),
+      {
+        src: "/projects/captures/now-todays-news-city.jpg",
+        alt: "Now Today's News side-scrolling city with a public broadcast and protesters",
+        width: 1280,
+        height: 724,
+        caption: "Game screenshot from the team’s itch.io release page",
+      },
+      {
+        src: "/projects/captures/now-todays-news-story.jpg",
+        alt: "Hand-drawn narrative scene from Now Today's News",
+        width: 1280,
+        height: 743,
+        caption: "Narrative scene · published itch.io screenshot",
+      },
     ],
     caseStudy: {
       problem:
-        "Thesis students need to compare an idea with existing research and identify useful directions and relevant researchers.",
+        "Explore how the same evidence can become different stories, and how those stories influence the world around them.",
       contribution:
-        "Integrated scholarly retrieval, deduplication and ranking; defined PostgreSQL migrations, relationships, JSONB, indexes and owner-scoped API access.",
+        "Helped build the game as part of a three-person game-jam team, collaborating on a connected narrative and gameplay experience.",
       architecture:
-        "OpenAlex, Semantic Scholar and DataCite retrieval feeds ranking and gap analysis, with Gemini/Vertex AI analysis and optional Supabase persistence.",
+        "Godot 4 scenes connect side-scrolling exploration, character interactions, and a broadcast interface. Players arrange photographs and characters into three-frame reports that influence later events.",
       decisions: [
-        "Combine multiple scholarly metadata sources and deduplicate results.",
-        "Keep retrieved evidence visible alongside generated analysis.",
-        "Scope saved reports per browser while making the prototype’s authentication limits explicit.",
+        "Use a three-frame report to make news construction a playable puzzle.",
+        "Connect broadcasts to visible changes in the city.",
+        "Build reusable scenes to support a small team working in parallel.",
       ],
       evidence: [
         {
-          label: "V2 source and implementation notes",
-          url: "https://github.com/akiibot/researchLensV2",
+          label: "Published game and screenshots",
+          url: "https://notfullyblissful.itch.io/now-todays-news",
+        },
+        {
+          label: "Team source repository",
+          url: "https://github.com/Alfa5nm/TrioJam",
         },
       ],
+      outcome:
+        "Winner of the IUT 12th ICT Fest 2026 GameJam, under the theme Kickoff.",
       limitations: [
-        "The V2 preview requires Vercel access. The pictured public interface is explicitly V1.",
-        "Opaque browser-owner tokens are not a full account-authentication system.",
+        "A downloadable game for Windows and macOS; it does not run in the browser.",
+        "The jam release contains short, introductory puzzles. The release page discloses AI-assisted assets alongside hand-drawn illustrations.",
       ],
     },
   },
@@ -273,48 +297,7 @@ const portfolioProjects: readonly Project[] = [
     placement: "additional",
     accent: "blue",
     sourceUrl: "https://github.com/Alfa5nm/CosmoScope_v2",
-    screenshots: [],
-  },
-  {
-    slug: "cropguard-ai",
-    name: "CropGuard AI",
-    number: "08",
-    category: "Monitoring prototype",
-    summary:
-      "A bilingual crop-monitoring prototype with deterministic risk scoring, live updates, and AI narration.",
-    stack: ["Next.js", "FastAPI", "WebSockets", "Pytest"],
-    status: "prototype",
-    placement: "additional",
-    accent: "sage",
-    sourceUrl: "https://github.com/akiibot/CropGuard-AI",
-    screenshots: [],
-  },
-  {
-    slug: "queuejhor",
-    name: "QueueJhor",
-    number: "09",
-    category: "Backend API",
-    summary:
-      "Investigate support complaints against transaction evidence, with deterministic routing and optional AI fallback.",
-    stack: ["Python", "FastAPI", "Docker"],
-    status: "hackathon",
-    placement: "additional",
-    accent: "sand",
-    sourceUrl: "https://github.com/akiibot/QueueJhor",
-    screenshots: [],
-  },
-  {
-    slug: "onetap-bus",
-    name: "OneTap Bus",
-    number: "10",
-    category: "Full-stack · Team project",
-    summary:
-      "Bus routes, fare estimates, and a simulated seat-booking journey for Dhaka commuters.",
-    stack: ["PHP", "MySQL", "JavaScript", "Leaflet"],
-    status: "prototype",
-    placement: "additional",
-    accent: "peach",
-    sourceUrl: "https://github.com/akiibot/OneTap-Bus",
+    video: { kind: "youtube", id: "Bq883qNbjoI" },
     screenshots: [],
   },
 ];
@@ -379,19 +362,14 @@ const generatedCovers: Record<string, Screenshot> = {
     caption:
       "AI-generated project illustration · not an app screenshot or actual campaign output",
   },
-  researchlens: {
-    src: "/projects/covers/researchlens-editorial.png",
-    alt: "Editorial illustration of research papers and a lens highlighting a research gap",
-    width: 1672,
-    height: 941,
-    caption:
-      "AI-generated project illustration · not a ResearchLens V2 screenshot",
-  },
 };
 export const projects: readonly Project[] = portfolioProjects.map(
   (project) => ({
     ...project,
-    role: "Lead architect & developer",
+    role:
+      project.slug === "now-todays-news"
+        ? project.role
+        : "Lead architect & developer",
     cover: generatedCovers[project.slug],
     caseStudy: project.caseStudy ?? teamNotes[project.slug],
   }),
@@ -404,4 +382,5 @@ export const demoLabel = {
   "sample-dashboard": "Sample dashboard",
   "simulated-demo": "Simulated SMS demo",
   "login-required": "Protected preview",
+  "downloadable-game": "Get the game",
 };

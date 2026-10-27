@@ -31,3 +31,7 @@ The new achievements section is recognized by scroll tracking without adding an 
 - Independent read-only review found no important defects; its image-loading test observation was incorporated.
 - Manual browser inspection confirmed the album grid and uncropped full-photo display; screenshot: `screenshots/award-photo-viewer.jpg`.
 - No publication or deployment was performed. The local preview remains http://127.0.0.1:3001/#achievements.
+
+## Poridhi album addition
+
+Added the two owner-supplied Poridhi photos as a sixth gallery album, “Poridhi AI Hackathon,” crediting organizers Poridhi.io and Brain Station 23. The event-backdrop photo visibly dates the event 26 April 2025. Captions describe participation without assigning an award or placing. Both photos were copied byte-for-byte, with dimensions preserved and SHA-256 hashes recorded in `award-photo-integrity.json`. The gallery now contains 11 original photos; existing mobile and no-JavaScript checks were updated for the extra album and originals.

@@ -4,7 +4,7 @@ export default function About() {
     <section id="about" className="section wrap" aria-labelledby="about-title">
       <div className="about-grid">
         <div>
-          <p className="eyebrow">02 / THE PERSON BEHIND THE WORK</p>
+          <p className="eyebrow">03 / THE PERSON BEHIND THE WORK</p>
           <h2 id="about-title">
             Curious by nature.
             <br />

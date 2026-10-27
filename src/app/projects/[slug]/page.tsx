@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowUpRight, GitBranch, Layers } from "lucide-react";
 import { projects, getProjectBySlug, demoLabel } from "@/content/projects";
+import ProjectDemo from "@/components/ProjectDemo";
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
   return projects.filter((p) => p.caseStudy).map((p) => ({ slug: p.slug }));
@@ -75,6 +76,9 @@ export default async function ProjectPage({ params }: Props) {
             )}
           </div>
         </header>
+        {project.video && (
+          <ProjectDemo name={project.name} video={project.video} />
+        )}
         <div className="case-facts">
           <div>
             <span>ROLE</span>

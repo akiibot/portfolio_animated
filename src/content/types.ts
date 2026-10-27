@@ -14,6 +14,8 @@ export type CaseStudy = {
   limitations: string[];
   outcome?: string;
 };
+export type ProjectVideo =
+  { kind: "youtube"; id: string } | { kind: "file"; src: string };
 export type Project = {
   slug: string;
   name: string;
@@ -26,9 +28,15 @@ export type Project = {
   sourceUrl?: string;
   demo?: {
     url: string;
-    kind: "live-app" | "sample-dashboard" | "simulated-demo" | "login-required";
+    kind:
+      | "live-app"
+      | "sample-dashboard"
+      | "simulated-demo"
+      | "login-required"
+      | "downloadable-game";
     checkedAt: string;
   };
+  video?: ProjectVideo;
   screenshots: Screenshot[];
   cover?: Screenshot;
   caseStudy?: CaseStudy;

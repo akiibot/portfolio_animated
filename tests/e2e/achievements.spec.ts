@@ -35,6 +35,7 @@ test("all supplied event albums are accessible on small screens", async ({
     "NASA Space Apps 2025",
     "IUT GameJam 2026",
     "Prompt engineering",
+    "Poridhi AI Hackathon",
     "Camp recognition",
   ]) {
     await page.getByRole("button", { name: `View ${name} photos` }).click();
@@ -72,7 +73,7 @@ test("original award photos remain accessible without JavaScript", async ({
   const page = await context.newPage();
   await page.goto("/#achievements", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("link", { name: /original photo/ })).toHaveCount(
-    9,
+    11,
   );
   await context.close();
 });

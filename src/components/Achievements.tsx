@@ -12,9 +12,9 @@ export default function Achievements() {
       <div className="wrap">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">RECOGNITION</p>
+            <p className="eyebrow">AWARDS &amp; MILESTONES</p>
             <h2 id="achievements-title">
-              Built. Tested. Recognized<span>.</span>
+              Achievements<span>.</span>
             </h2>
           </div>
           <Trophy className="section-icon" size={30} />

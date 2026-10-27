@@ -10,9 +10,9 @@ export default function Home() {
     <main id="main-content">
       <Hero />
       <Projects />
-      <Achievements />
-      <About />
       <Experience />
+      <About />
+      <Achievements />
       <EducationAwards />
       <Contact />
     </main>

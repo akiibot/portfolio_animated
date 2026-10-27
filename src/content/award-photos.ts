@@ -113,6 +113,31 @@ export const awardAlbums: readonly AwardAlbum[] = [
     ],
   },
   {
+    id: "poridhi",
+    title: "Poridhi AI Hackathon",
+    subtitle: "Organized by Poridhi.io & Brain Station 23",
+    fit: "cover",
+    position: "center",
+    photos: [
+      {
+        src: "/awards/poridhi-building.jpg",
+        alt: "Working on a laptop during the Poridhi AI Hackathon",
+        caption:
+          "Building during the AI Hackathon organized by Poridhi.io and Brain Station 23.",
+        width: 2048,
+        height: 1365,
+      },
+      {
+        src: "/awards/poridhi-event.jpg",
+        alt: "At the Poridhi AI Hackathon event backdrop with Poridhi and Brain Station 23 branding",
+        caption:
+          "At the Poridhi.io and Brain Station 23 AI Hackathon, 26 April 2025.",
+        width: 2048,
+        height: 1355,
+      },
+    ],
+  },
+  {
     id: "duke",
     title: "Camp recognition",
     subtitle: "Duke of Edinburgh expedition · Best Camper & Best Team",

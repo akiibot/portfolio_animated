@@ -52,5 +52,17 @@
     "asset": "/awards/prompt-engineering-champion.jpg",
     "bytes": 180013,
     "sha256": "0da3f4903e25520b5045904148082b21da9194b90f06041524c4cbe8b6ee0be7"
+  },
+  {
+    "source": "Poridhi.jpg",
+    "asset": "/awards/poridhi-building.jpg",
+    "bytes": 180559,
+    "sha256": "82afc708d8ec056ca24e7621028cb81fd0a2c612894760f1794eb8136ce1fdbd"
+  },
+  {
+    "source": "Poridhi2.jpg",
+    "asset": "/awards/poridhi-event.jpg",
+    "bytes": 348918,
+    "sha256": "0698eb23803b93bed6373f305122f8d056d684d905885d4983bae8ed863453d6"
   }
 ]

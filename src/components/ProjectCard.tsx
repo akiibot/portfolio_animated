@@ -1,9 +1,15 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, GitBranch, Layers } from "lucide-react";
+import { ArrowUpRight, GitBranch, Layers, Play, X } from "lucide-react";
 import type { Project } from "@/content/types";
 import { demoLabel } from "@/content/projects";
+import DemoPlayer, { videoUrl } from "./DemoPlayer";
 export default function ProjectCard({ project }: { project: Project }) {
+  const [playing, setPlaying] = useState(false);
+  const screen = useRef<HTMLDivElement>(null);
   const screenshot = project.cover ?? project.screenshots[0];
   const detail = !!project.caseStudy;
   return (
@@ -24,12 +30,24 @@ export default function ProjectCard({ project }: { project: Project }) {
                 <i />
               </span>
               <span>
-                {project.cover ? "PROJECT ILLUSTRATION" : project.name}
+                {project.cover && !playing
+                  ? "PROJECT ILLUSTRATION"
+                  : project.name}
               </span>
               <ArrowUpRight size={12} />
             </div>
-            <div className="preview-image">
-              {detail ? (
+            <div
+              className="preview-image"
+              ref={screen}
+              id={`preview-${project.slug}`}
+            >
+              {playing && project.video ? (
+                <DemoPlayer
+                  name={project.name}
+                  video={project.video}
+                  autoPlay
+                />
+              ) : detail ? (
                 <Link
                   href={`/projects/${project.slug}`}
                   tabIndex={-1}
@@ -53,7 +71,22 @@ export default function ProjectCard({ project }: { project: Project }) {
                 />
               )}
             </div>
-            <p className="preview-caption">{screenshot.caption}</p>
+            <div className="preview-caption">
+              {playing && project.video ? (
+                <a
+                  href={videoUrl(project.video)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {project.video.kind === "youtube"
+                    ? "Open on YouTube"
+                    : "Open video file"}{" "}
+                  <ArrowUpRight size={12} />
+                </a>
+              ) : (
+                screenshot.caption
+              )}
+            </div>
           </>
         ) : (
           <div
@@ -105,6 +138,38 @@ export default function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
         <div className="project-actions">
+          {project.video && (
+            <>
+              <button
+                type="button"
+                className="card-demo-toggle"
+                aria-label={`${playing ? "Show screenshot" : "Watch demo"} of ${project.name}`}
+                aria-controls={`preview-${project.slug}`}
+                aria-expanded={playing}
+                onClick={() => {
+                  setPlaying(!playing);
+                  if (!playing)
+                    screen.current?.scrollIntoView({
+                      block: "center",
+                      behavior: "instant",
+                    });
+                }}
+              >
+                {playing ? <X size={14} /> : <Play size={14} />}
+                {playing ? "Show screenshot" : "Watch demo"}
+              </button>
+              <noscript>
+                <style>{`.card-demo-toggle { display: none; }`}</style>
+                <a
+                  href={videoUrl(project.video)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Watch demo
+                </a>
+              </noscript>
+            </>
+          )}
           {detail && (
             <Link href={`/projects/${project.slug}`}>
               Project story <ArrowUpRight size={14} />
