@@ -1,42 +1,11 @@
-"use client";
-
-import { Home, Lightbulb, Briefcase, GraduationCap, Download } from "lucide-react";
-import { TubelightNavBar } from "@/components/ui/tubelight-navbar";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
-
-export default function NavBar() {
-    const navItems = [
-        { name: 'About', url: '#about', icon: Home },
-        { name: 'Experience', url: '#experience', icon: Briefcase },
-        { name: 'Education', url: '#education', icon: GraduationCap },
-        { name: 'Projects', url: '#projects', icon: Lightbulb }
-    ];
-
-    const scrollToContact = () => {
-        const contactSection = document.getElementById("contact");
-        if (contactSection) {
-            contactSection.scrollIntoView({ behavior: "smooth" });
-        }
-    };
-
-    return (
-        <TubelightNavBar items={navItems}>
-            <a
-                href="https://drive.google.com/file/d/1ShkV7fwprgLWgoSpJBJCiRa-XLnKjeVQ/view?usp=sharing"
-                target="_blank"
-                rel="noreferrer"
-                className="hidden md:flex items-center gap-2 hover:bg-white/10 text-white/80 hover:text-white px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 text-sm font-medium mr-2"
-                title="View Resume"
-            >
-                <Download size={16} />
-                Resume
-            </a>
-
-            <InteractiveHoverButton
-                onClick={scrollToContact}
-                text="Hire Me"
-                className="w-24 md:w-28 py-1.5 md:py-2 text-xs md:text-sm bg-white text-black border-none"
-            />
-        </TubelightNavBar>
-    );
+'use client';
+import Link from 'next/link';
+import {useEffect,useState} from 'react';
+import {ArrowUpRight,Download} from 'lucide-react';
+import {usePathname} from 'next/navigation';
+import {profile} from '@/content/profile';
+const items=[{label:'Work',id:'projects'},{label:'About',id:'about'},{label:'Experience',id:'experience'},{label:'Contact',id:'contact'}];
+export default function NavBar(){const [active,setActive]=useState('home');const pathname=usePathname();const home=pathname==='/';
+ useEffect(()=>{if(!home)return;const ids=['home','projects','about','experience','education','contact'];let ticking=false;const update=()=>{ticking=false;let current='home';for(const id of ids){const node=document.getElementById(id);if(node&&node.getBoundingClientRect().top<=innerHeight*.35)current=id;}setActive(current);};const onScroll=()=>{if(!ticking){ticking=true;requestAnimationFrame(update);}};update();addEventListener('scroll',onScroll,{passive:true});return()=>removeEventListener('scroll',onScroll);},[home]);
+ return <header className="site-header"><nav className="site-nav" aria-label="Main navigation"><Link href={home?'#home':'/'} className="wordmark" aria-label="Akib home">a<span>k</span><i>.</i></Link><div className="nav-links">{items.map(item=><a key={item.id} href={`${home?'':'/'}#${item.id}`} aria-current={home&&active===item.id?'location':undefined}>{item.label}</a>)}</div><a className="nav-resume" href={profile.resume} target="_blank" rel="noreferrer"><span>Resume</span><Download size={15}/></a><a className="nav-connect" href={`${home?'':'/'}#contact`} aria-label="Let's connect"><ArrowUpRight size={17}/></a></nav></header>;
 }
