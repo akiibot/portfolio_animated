@@ -41,7 +41,6 @@
   background-size: 576px 96px;
   image-rendering: pixelated;
   animation: akiibot-frames 1s steps(6) infinite;
-  filter: drop-shadow(0 4px 8px #0006);
 }
 .akiibot-once {
   animation-iteration-count: 1;

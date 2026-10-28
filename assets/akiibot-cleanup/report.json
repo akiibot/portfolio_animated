@@ -1,0 +1,125 @@
+{
+  "sourceVersion": "1fac0ef44182",
+  "method": "Visually reviewed alpha-only masks; original RGB retained, no resampling or redraw",
+  "sheets": [
+    {
+      "file": "akiibot-answering.png",
+      "sourceSha256": "3359bac22cc47c2d5e88b4880574b374a0931d046da1f4348341305576907f40",
+      "removedPixelsPerFrame": [
+        259,
+        527,
+        41,
+        552,
+        413,
+        161
+      ],
+      "removedPixels": 1953
+    },
+    {
+      "file": "akiibot-error.png",
+      "sourceSha256": "3d2c783ebe63b230428755bbf0a5efd55f2d0af72109c55f02816b95e4b61bd2",
+      "removedPixelsPerFrame": [
+        307,
+        28,
+        19,
+        14,
+        37,
+        307
+      ],
+      "removedPixels": 712
+    },
+    {
+      "file": "akiibot-greeting.png",
+      "sourceSha256": "4ed8d9b475c7d3eb8651df3273dc1162ce5af265b5ce3f850cac74956c63fe2a",
+      "removedPixelsPerFrame": [
+        307,
+        477,
+        462,
+        355,
+        8,
+        307
+      ],
+      "removedPixels": 1916
+    },
+    {
+      "file": "akiibot-happy.png",
+      "sourceSha256": "dfd611dd5ded4bd4ceeb0822365cb755f7257b332c91e97783fdb6609cfd7344",
+      "removedPixelsPerFrame": [
+        307,
+        86,
+        90,
+        41,
+        16,
+        307
+      ],
+      "removedPixels": 847
+    },
+    {
+      "file": "akiibot-idle.png",
+      "sourceSha256": "65bbba5daf9b9405614256a6a044161e0667ae27ca2e153611caac72cd8ab7b4",
+      "removedPixelsPerFrame": [
+        307,
+        14,
+        10,
+        68,
+        10,
+        13
+      ],
+      "removedPixels": 422
+    },
+    {
+      "file": "akiibot-listening.png",
+      "sourceSha256": "2ffa84d70a501caed3521c15d24f6f1179e515faf36b8b9748dbdb150be17b3f",
+      "removedPixelsPerFrame": [
+        49,
+        0,
+        0,
+        0,
+        0,
+        49
+      ],
+      "removedPixels": 98
+    },
+    {
+      "file": "akiibot-sleeping.png",
+      "sourceSha256": "14f91ee370c5719a35ce496b954f2f21b8e3f543f734c8857fff3790515a1a5a",
+      "removedPixelsPerFrame": [
+        64,
+        28,
+        113,
+        131,
+        113,
+        28
+      ],
+      "removedPixels": 477
+    },
+    {
+      "file": "akiibot-thinking.png",
+      "sourceSha256": "03f7f9603898c8075b8f4f454ff48dbd14401089d8af133dc1bbf33c8f2e3709",
+      "removedPixelsPerFrame": [
+        19,
+        34,
+        31,
+        19,
+        50,
+        19
+      ],
+      "removedPixels": 172
+    },
+    {
+      "file": "akiibot-unsure.png",
+      "sourceSha256": "9e5154c9653090161e9f17a429e03d4dc70c45ec87c3659c2dca0163cda18c27",
+      "removedPixelsPerFrame": [
+        307,
+        522,
+        13,
+        563,
+        365,
+        307
+      ],
+      "removedPixels": 2077
+    }
+  ],
+  "cleanedVersion": "df293a4bb6e7",
+  "totalRemovedPixels": 8674
+}

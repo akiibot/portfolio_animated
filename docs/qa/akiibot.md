@@ -1,5 +1,7 @@
 # Akiibot implementation and verification — 28 October 2026
 
+Follow-up: background-remnant cleanup is recorded in [akiibot-sprite-cleanup.md](akiibot-sprite-cleanup.md). The current manifest uses cleaned version `df293a4bb6e7`; the original supplied version is retained.
+
 Local interactive preview: http://127.0.0.1:3137/ (development server, real protected Gemini/Redis backend). A separate production-build server on port 3140 was used for mocked browser regression checks; production configuration intentionally rejects non-Vercel hosting for real AI requests.
 
 ## Delivered
