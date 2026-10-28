@@ -1,5 +1,7 @@
 .git
 .env*
+.secrets
+**/*service-account*.json
 .next
 node_modules
 test-results
