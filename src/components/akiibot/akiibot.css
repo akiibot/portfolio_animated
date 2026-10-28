@@ -1,0 +1,397 @@
+.akiibot-root {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 200;
+  color: #eeeae1;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.akiibot-root button,
+.akiibot-root a,
+.akiibot-root textarea {
+  font: inherit;
+}
+.akiibot-root button {
+  cursor: pointer;
+}
+.akiibot-root button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.akiibot-root :focus-visible {
+  outline: 2px solid #bcc8a5;
+  outline-offset: 3px;
+}
+.akiibot-launcher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: 0;
+  color: inherit;
+  padding: 0 8px;
+  position: relative;
+}
+.akiibot-sprite {
+  display: block;
+  width: 96px;
+  height: 96px;
+  background-size: 576px 96px;
+  image-rendering: pixelated;
+  animation: akiibot-frames 1s steps(6) infinite;
+  filter: drop-shadow(0 4px 8px #0006);
+}
+.akiibot-once {
+  animation-iteration-count: 1;
+}
+.akiibot-static {
+  animation: none;
+  background-position: 0 0;
+}
+.akiibot-launcher-label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #282b24;
+  border: 1px solid #60674e;
+  border-radius: 24px;
+  padding: 6px 12px;
+  font-size: 12px;
+  box-shadow: 0 3px 20px #0004;
+}
+.akiibot-launcher-label span {
+  color: #bcc8a5;
+}
+.akiibot-pause {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 1px solid #525747;
+  background: #20231c;
+  color: #d6dbc9;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 11px !important;
+}
+@keyframes akiibot-frames {
+  to {
+    background-position: -576px 0;
+  }
+}
+.akiibot-panel {
+  position: absolute;
+  bottom: 128px;
+  right: 0;
+  width: min(380px, calc(100vw - 32px));
+  height: min(650px, calc(100dvh - 160px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #1d201a;
+  border: 1px solid #4c5141;
+  border-radius: 20px;
+  box-shadow: 0 20px 90px #0008;
+}
+.akiibot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  border-bottom: 1px solid #3b4032;
+  flex: none;
+}
+.akiibot-header > div {
+  position: relative;
+  padding-left: 17px;
+}
+.akiibot-dot {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  background: #c0cda4;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.akiibot-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+.akiibot-header p {
+  font-size: 11px;
+  color: #a5ab99;
+  margin: 2px 0 0;
+}
+.akiibot-header button {
+  border: 0;
+  background: none;
+  color: #dfe2d7;
+  font-size: 26px;
+  width: 36px;
+  height: 36px;
+}
+.akiibot-messages {
+  padding: 20px 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1;
+  min-height: 80px;
+  scrollbar-width: thin;
+}
+.akiibot-eyebrow {
+  font-size: 9px !important;
+  letter-spacing: 0.12em;
+  color: #b3bf9c !important;
+}
+.akiibot-welcome h3 {
+  font-size: 24px;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin: 10px 0;
+}
+.akiibot-welcome p {
+  font-size: 13px;
+  color: #bec2b4;
+  margin: 8px 0 16px;
+}
+.akiibot-prompts {
+  display: grid;
+  gap: 7px;
+  margin: 18px 0;
+}
+.akiibot-prompts button {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid #444a39;
+  border-radius: 9px;
+  background: #262a21;
+  color: #dfe6d1;
+  font-size: 12px;
+}
+.akiibot-prompts button:hover {
+  background: #32392a;
+}
+.akiibot-message {
+  padding: 12px 0;
+  border-bottom: 1px solid #353a2d;
+}
+.akiibot-speaker {
+  font-size: 10px;
+  color: #a9b796;
+  letter-spacing: 0.05em;
+}
+.akiibot-message p {
+  margin: 5px 0 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.akiibot-user {
+  margin-left: 24px;
+  color: #cbd1c0;
+}
+.akiibot-user p {
+  background: #2b3025;
+  border-radius: 10px;
+  padding: 10px;
+}
+.akiibot-sources,
+.akiibot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.akiibot-sources a {
+  font-size: 11px;
+  color: #c5d5a9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.akiibot-suggestions button {
+  font-size: 11px !important;
+  border: 1px solid #4b543d;
+  border-radius: 8px;
+  background: transparent;
+  color: #d2dcc1;
+  padding: 6px 8px;
+  margin-top: 6px;
+}
+.akiibot-thinking {
+  font-size: 12px;
+  color: #bac5a7;
+}
+.akiibot-error-box {
+  border: 1px solid #716449;
+  background: #322e22;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-top: 12px;
+}
+.akiibot-error-box p {
+  margin: 0 0 5px;
+}
+.akiibot-error-box button {
+  color: #ebdfbe;
+  background: none;
+  border: 0;
+  text-decoration: underline;
+}
+.akiibot-fallback {
+  display: flex;
+  gap: 14px;
+  padding: 8px 18px;
+  border-top: 1px solid #343a2b;
+  flex: none;
+}
+.akiibot-fallback a {
+  font-size: 10px;
+  color: #c0c9ae;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.akiibot-composer {
+  display: flex;
+  gap: 8px;
+  margin: 4px 12px 0;
+  padding: 9px;
+  background: #292e24;
+  border: 1px solid #555e46;
+  border-radius: 12px;
+  flex: none;
+}
+.akiibot-composer textarea {
+  min-height: 48px;
+  height: 48px;
+  padding: 3px;
+  width: 100%;
+  border: 0;
+  background: none;
+  color: #f0f1e9;
+  resize: none;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: 100px;
+  min-width: 0;
+}
+.akiibot-composer textarea::placeholder {
+  color: #9ca58c;
+}
+.akiibot-composer button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 9px;
+  background: #c5d3ab;
+  color: #1c2215;
+  font-size: 24px;
+  flex: none;
+}
+.akiibot-controls {
+  display: flex;
+  gap: 12px;
+  padding: 7px 16px;
+  color: #a2ab94;
+  align-items: center;
+  flex: none;
+}
+.akiibot-controls button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font-size: 10px;
+}
+.akiibot-controls span {
+  margin-left: auto;
+  font-size: 10px;
+}
+.akiibot-privacy {
+  padding: 0 16px 10px;
+  color: #a1a993;
+  font-size: 10px;
+  flex: none;
+  max-height: 110px;
+  overflow-y: auto;
+}
+.akiibot-privacy summary {
+  cursor: pointer;
+}
+.akiibot-privacy p {
+  margin: 6px 0;
+}
+.akiibot-privacy a {
+  color: #c3cfae;
+  text-decoration: underline;
+}
+.akiibot-root .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 600px) {
+  .akiibot-root {
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+  .akiibot-sprite {
+    width: 64px;
+    height: 64px;
+    background-size: 384px 64px;
+    animation-name: akiibot-frames-small;
+  }
+  .akiibot-launcher-label {
+    font-size: 10px;
+    padding: 5px 9px;
+  }
+  .akiibot-panel {
+    position: fixed;
+    inset: 8px 8px auto;
+    width: auto;
+    height: calc(100dvh - 16px - env(safe-area-inset-bottom));
+    border-radius: 15px;
+  }
+  .akiibot-open .akiibot-launcher {
+    display: none;
+  }
+  .akiibot-composer textarea {
+  min-height: 48px;
+  height: 48px;
+  padding: 3px;
+    font-size: 16px;
+  }
+  .akiibot-welcome h3 {
+    font-size: 25px;
+  }
+}
+@keyframes akiibot-frames-small {
+  to {
+    background-position: -384px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akiibot-sprite {
+    animation: none !important;
+  }
+}
+@media (max-height: 650px) and (min-width: 601px) {
+  .akiibot-panel {
+    bottom: 100px;
+    height: calc(100dvh - 120px);
+  }
+  .akiibot-launcher .akiibot-sprite {
+    height: 72px;
+  }
+}

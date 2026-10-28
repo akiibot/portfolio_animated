@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import NavBar from "@/components/NavBar";
+import Akiibot from "@/components/akiibot/Widget";
 import { profile } from "@/content/profile";
 import "./globals.css";
 const geistSans = localFont({
@@ -62,6 +63,7 @@ export default function RootLayout({
         </a>
         <NavBar />
         {children}
+        <Akiibot />
       </body>
     </html>
   );

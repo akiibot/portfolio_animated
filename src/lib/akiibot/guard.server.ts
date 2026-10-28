@@ -1,14 +1,39 @@
-import 'server-only';
-import { randomUUID } from 'node:crypto';
-import { ChatError, policy } from './policy';
-import type { ErrorCode, TokenUsage } from './types';
-export interface GuardStore {eval(script:string,keys:string[],args:(string|number)[]):Promise<unknown>}
-export type Lease={id:string;browser:string;session:string;now:number};
-export type Reservation={id:string;key:string;monthKey:string;reservedMicroUsd:number;inputTokens:number};
-type Attempt={browserId:string;sessionId:string;ipHash:string;requestId:string;now:number};
-type Admission={allowed:true;lease:Lease}|{allowed:false;code:ErrorCode;retryAfterSeconds?:number};
+import "server-only";
+import { randomUUID } from "node:crypto";
+import { ChatError, policy } from "./policy";
+import type { ErrorCode, TokenUsage } from "./types";
+export interface GuardStore {
+  eval(
+    script: string,
+    keys: string[],
+    args: (string | number)[],
+  ): Promise<unknown>;
+}
+export type Lease = {
+  id: string;
+  browser: string;
+  session: string;
+  now: number;
+};
+export type Reservation = {
+  id: string;
+  key: string;
+  monthKey: string;
+  reservedMicroUsd: number;
+  inputTokens: number;
+};
+type Attempt = {
+  browserId: string;
+  sessionId: string;
+  ipHash: string;
+  requestId: string;
+  now: number;
+};
+type Admission =
+  | { allowed: true; lease: Lease }
+  | { allowed: false; code: ErrorCode; retryAfterSeconds?: number };
 // All gates use Redis atomic scripts; no per-instance counters authorize AI requests.
-const admit=`
+const admit = `
 local p=KEYS[1]; local now=tonumber(ARGV[1]); local b=ARGV[2]; local s=ARGV[3]; local ip=ARGV[4];local rid=ARGV[5];local id=ARGV[6]
 local function deny(code,retry) return cjson.encode({allowed=false,code=code,retryAfterSeconds=retry}) end
 local function count(k,limit,ttl)
@@ -31,13 +56,13 @@ redis.call('SET',p..'request:'..b..':'..rid,1,'EX',86400)
 redis.call('SET',p..'active-browser:'..b,id,'PX',45000)
 redis.call('ZADD',p..'active',now+45000,id);redis.call('EXPIRE',p..'active',60)
 return cjson.encode({allowed=true})`;
-const reserve=`
+const reserve = `
 local amount=tonumber(ARGV[1]);local cap=tonumber(ARGV[2]);local used=tonumber(redis.call('GET',KEYS[1]) or '0')
 if redis.call('EXISTS',KEYS[2])==1 then return 0 end
 if used+amount>cap then return 0 end
 redis.call('INCRBY',KEYS[1],amount);redis.call('EXPIRE',KEYS[1],7776000)
 redis.call('SET',KEYS[2],amount,'EX',7776000);return 1`;
-const finish=`
+const finish = `
 local p=KEYS[1];local id=ARGV[1];local b=ARGV[2];local s=ARGV[3];local now=tonumber(ARGV[4]);local success=ARGV[5]=='1'
 local first=true
 if KEYS[2]~='' then
@@ -54,30 +79,132 @@ end
 if redis.call('GET',p..'active-browser:'..b)==id then redis.call('DEL',p..'active-browser:'..b) end
 redis.call('ZREM',p..'active',id)
 return tonumber(redis.call('GET',p..'success-session:'..s) or '0')`;
-const issue=`
+const issue = `
 local b=tonumber(redis.call('GET',KEYS[1]) or '0');local ip=tonumber(redis.call('GET',KEYS[2]) or '0')
 if b>=12 or ip>=60 then return 0 end
 redis.call('INCR',KEYS[1]);redis.call('EXPIRE',KEYS[1],3600);redis.call('INCR',KEYS[2]);redis.call('EXPIRE',KEYS[2],3600);return 1`;
 export class Guard {
- constructor(private store:GuardStore,private prefix:string,private scope:string){}
- async admitSessionCreation(i:{browserId:string;ipHash:string;now:number}){const h=Math.floor(i.now/3600000);return {allowed:Number(await this.store.eval(issue,[`${this.prefix}issue-b:${i.browserId}:${h}`,`${this.prefix}issue-ip:${i.ipHash}:${h}`],[]))===1,retryAfterSeconds:60};}
- async admitAttempt(i:Attempt):Promise<Admission>{
-  const id=randomUUID();const raw=await this.store.eval(admit,[this.prefix],[i.now,i.browserId,i.sessionId,i.ipHash,i.requestId,id]);
-  const result=JSON.parse(String(raw)) as {allowed:boolean;code:ErrorCode;retryAfterSeconds?:number};
-  return result.allowed?{allowed:true,lease:{id,browser:i.browserId,session:i.sessionId,now:i.now}}:{allowed:false,code:result.code,retryAfterSeconds:result.retryAfterSeconds};
- }
- async reserveCost(lease:Lease,inputTokens:number,now:number):Promise<Reservation>{
-  if(!Number.isSafeInteger(inputTokens)||inputTokens<1||inputTokens>policy.maxInput)throw new ChatError('unavailable',503);
-  const monthKey=this.scope+'month:'+new Date(now).toISOString().slice(0,7);const key=this.scope+'reservation:'+lease.id;
-  const reservedMicroUsd=Math.ceil(inputTokens*policy.inputMicro+policy.maxOutput*policy.outputMicro);
-  if(Number(await this.store.eval(reserve,[monthKey,key],[reservedMicroUsd,policy.budgetMicro]))!==1)throw new ChatError('budget_exhausted',503);
-  return {id:lease.id,key,monthKey,reservedMicroUsd,inputTokens};
- }
- async finishAttempt(lease:Lease,r:Reservation|undefined,usage:TokenUsage|undefined,success:boolean):Promise<number>{
-  let actual=-1;
-  if(r&&usage&&Number.isSafeInteger(usage.inputTokens)&&Number.isSafeInteger(usage.billableOutputTokens)&&usage.inputTokens>=0&&usage.inputTokens<=r.inputTokens&&usage.billableOutputTokens>=0&&usage.billableOutputTokens<=policy.maxOutput)actual=Math.ceil(usage.inputTokens*policy.inputMicro+usage.billableOutputTokens*policy.outputMicro);
-  if(success&&(actual<0||!r))throw new ChatError('unavailable',503);
-  const count=await this.store.eval(finish,[this.prefix,r?.key||'',r?.monthKey||''],[lease.id,lease.browser,lease.session,lease.now,success?1:0,actual]);return Math.max(0,15-Number(count));
- }
- async spent(now:number):Promise<number>{return Number(await this.store.eval("return tonumber(redis.call('GET',KEYS[1]) or '0')",[this.scope+'month:'+new Date(now).toISOString().slice(0,7)],[]));}
+  constructor(
+    private store: GuardStore,
+    private prefix: string,
+    private scope: string,
+  ) {}
+  async admitSessionCreation(i: {
+    browserId: string;
+    ipHash: string;
+    now: number;
+  }) {
+    const h = Math.floor(i.now / 3600000);
+    return {
+      allowed:
+        Number(
+          await this.store.eval(
+            issue,
+            [
+              `${this.prefix}issue-b:${i.browserId}:${h}`,
+              `${this.prefix}issue-ip:${i.ipHash}:${h}`,
+            ],
+            [],
+          ),
+        ) === 1,
+      retryAfterSeconds: 60,
+    };
+  }
+  async admitAttempt(i: Attempt): Promise<Admission> {
+    const id = randomUUID();
+    const raw = await this.store.eval(
+      admit,
+      [this.prefix],
+      [i.now, i.browserId, i.sessionId, i.ipHash, i.requestId, id],
+    );
+    const result = JSON.parse(String(raw)) as {
+      allowed: boolean;
+      code: ErrorCode;
+      retryAfterSeconds?: number;
+    };
+    return result.allowed
+      ? {
+          allowed: true,
+          lease: { id, browser: i.browserId, session: i.sessionId, now: i.now },
+        }
+      : {
+          allowed: false,
+          code: result.code,
+          retryAfterSeconds: result.retryAfterSeconds,
+        };
+  }
+  async reserveCost(
+    lease: Lease,
+    inputTokens: number,
+    now: number,
+  ): Promise<Reservation> {
+    if (
+      !Number.isSafeInteger(inputTokens) ||
+      inputTokens < 1 ||
+      inputTokens > policy.maxInput
+    )
+      throw new ChatError("unavailable", 503);
+    const monthKey =
+      this.scope + "month:" + new Date(now).toISOString().slice(0, 7);
+    const key = this.scope + "reservation:" + lease.id;
+    const reservedMicroUsd = Math.ceil(
+      inputTokens * policy.inputMicro + policy.maxOutput * policy.outputMicro,
+    );
+    if (
+      Number(
+        await this.store.eval(
+          reserve,
+          [monthKey, key],
+          [reservedMicroUsd, policy.budgetMicro],
+        ),
+      ) !== 1
+    )
+      throw new ChatError("budget_exhausted", 503);
+    return { id: lease.id, key, monthKey, reservedMicroUsd, inputTokens };
+  }
+  async finishAttempt(
+    lease: Lease,
+    r: Reservation | undefined,
+    usage: TokenUsage | undefined,
+    success: boolean,
+  ): Promise<number> {
+    let actual = -1;
+    if (
+      r &&
+      usage &&
+      Number.isSafeInteger(usage.inputTokens) &&
+      Number.isSafeInteger(usage.billableOutputTokens) &&
+      usage.inputTokens >= 0 &&
+      usage.inputTokens <= r.inputTokens &&
+      usage.billableOutputTokens >= 0 &&
+      usage.billableOutputTokens <= policy.maxOutput
+    )
+      actual = Math.ceil(
+        usage.inputTokens * policy.inputMicro +
+          usage.billableOutputTokens * policy.outputMicro,
+      );
+    if (success && (actual < 0 || !r)) throw new ChatError("unavailable", 503);
+    const count = await this.store.eval(
+      finish,
+      [this.prefix, r?.key || "", r?.monthKey || ""],
+      [
+        lease.id,
+        lease.browser,
+        lease.session,
+        lease.now,
+        success ? 1 : 0,
+        actual,
+      ],
+    );
+    return Math.max(0, 15 - Number(count));
+  }
+  async spent(now: number): Promise<number> {
+    return Number(
+      await this.store.eval(
+        "return tonumber(redis.call('GET',KEYS[1]) or '0')",
+        [this.scope + "month:" + new Date(now).toISOString().slice(0, 7)],
+        [],
+      ),
+    );
+  }
 }

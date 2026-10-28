@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
-import { spriteManifest, spriteStates } from '@/components/akiibot/assets';
-describe('supplied Akiibot sprites', () => {
-  it('has nine versioned RGBA sheets, six occupied frames each', () => {
+import { describe, expect, it } from "vitest";
+import { existsSync, readFileSync } from "node:fs";
+import { spriteManifest, spriteStates } from "@/components/akiibot/assets";
+describe("supplied Akiibot sprites", () => {
+  it("has nine versioned RGBA sheets, six occupied frames each", () => {
     expect(spriteStates).toHaveLength(9);
     for (const state of spriteStates) {
       const path = `public${spriteManifest.urls[state]}`;
