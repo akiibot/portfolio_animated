@@ -131,6 +131,24 @@ export function createChatHandler(d: Dependencies) {
       usage: TokenUsage | undefined,
       finished = false;
     const signal = AbortSignal.any([req.signal, AbortSignal.timeout(25000)]);
+    const timings: Record<string, number> = {};
+    let stage = "validation",
+      stageStart = performance.now();
+    const mark = (next: string) => {
+      timings[stage] = (timings[stage] || 0) + performance.now() - stageStart;
+      stage = next;
+      stageStart = performance.now();
+    };
+    const timed = (response: Response) => {
+      mark("done");
+      response.headers.set(
+        "Server-Timing",
+        Object.entries(timings)
+          .map(([name, ms]) => `${name};dur=${Math.round(ms)}`)
+          .join(", "),
+      );
+      return response;
+    };
     try {
       verifyOrigin(req, d.config.origins);
       const body = validateChatBody(await readBoundedJson(req));
@@ -145,6 +163,7 @@ export function createChatHandler(d: Dependencies) {
           d.config.secret,
           now,
         );
+      mark("guard");
       const a = await d.guard.admitAttempt({
         browserId: id,
         sessionId: s.sessionId,
@@ -166,6 +185,7 @@ export function createChatHandler(d: Dependencies) {
         turns,
         message: body.message,
       };
+      mark("count");
       let count = await d.vertex.countInputTokens(input, signal);
       if (count > policy.maxInput) {
         input = { ...input, facts: k.facts, turns: [] };
@@ -173,8 +193,10 @@ export function createChatHandler(d: Dependencies) {
       }
       if (count > policy.maxInput) throw new ChatError("unavailable", 503);
       signal.throwIfAborted();
+      mark("reserve");
       reservation = await d.guard.reserveCost(lease, count, now);
       signal.throwIfAborted();
+      mark("generation");
       const generated = await d.vertex.generate(input, signal);
       usage = generated.usage;
       signal.throwIfAborted();
@@ -183,6 +205,7 @@ export function createChatHandler(d: Dependencies) {
         [...input.turns, { user: body.message, assistant: reply.answer }],
         s.sessionId,
       );
+      mark("settle");
       const remainingMessages = await d.guard.finishAttempt(
         lease,
         reservation,
@@ -190,12 +213,14 @@ export function createChatHandler(d: Dependencies) {
         true,
       );
       finished = true;
-      return Response.json(
-        { ...reply, historyToken, remainingMessages },
-        { headers: { "Cache-Control": "no-store" } },
+      return timed(
+        Response.json(
+          { ...reply, historyToken, remainingMessages },
+          { headers: { "Cache-Control": "no-store" } },
+        ),
       );
     } catch (e) {
-      return failure(signal.aborted ? new ChatError("timeout", 504) : e);
+      return timed(failure(signal.aborted ? new ChatError("timeout", 504) : e));
     } finally {
       if (lease && !finished) {
         try {

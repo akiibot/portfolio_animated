@@ -69,3 +69,27 @@ The external-link report is manual and non-blocking because external sites can t
 5. Smoke-check home, a case study, resume, sitemap, metadata and asset loading. Roll back by promoting the previous working Vercel deployment; do not overwrite old versioned assets or delete source images to “clear” caches.
 
 No production deployment is performed by the local implementation workflow. See `docs/qa/portfolio-release.md` for verified results and outstanding limitations.
+
+## Akiibot
+
+The supplied nine pixel-art sprite sheets power a small bottom-right launcher. The panel is loaded on interaction; AI sessions start only when a question is submitted. Approved facts come from `src/content/`; add public, owner-approved details to `src/content/akiibot.ts`. The assistant has no browsing or action tools.
+
+Local configuration is in ignored `.env.local`; `.env.example` documents the variables. Use the external service-account JSON via `GOOGLE_APPLICATION_CREDENTIALS` locally. Never place that file in `public/` or commit it. Akiibot uses Gemini `gemini-3.8-flash` on the global Vertex endpoint with LOW thinking, bounded output and no automatic retries.
+
+A free account-owned Upstash database stores temporary counters, concurrency leases, dedup markers and numerical usage reservations—not conversations. Both Redis credentials and a random 32-byte-or-longer `AKIIBOT_SESSION_SECRET` are required. Missing/unavailable shared protection disables AI safely. The default policy lives in `src/lib/akiibot/policy.ts`; it allows 15 successful replies per eight-hour tab, uses browser/IP backstops and reserves estimated spend before each generation. The $4.50 monthly route allowance leaves a buffer within the initial $5 target; it is not a whole-project invoice guarantee. `AKIIBOT_ENABLED=false` is the kill switch. Static projects/CV/contact links remain available.
+
+```sh
+# Preview already-configured local development:
+npm run dev -- --port 3137
+# Extra checks (local Redis executable needed for unit concurrency tests):
+npm run test:integration:akiibot
+npm run evaluate:akiibot -- --dry-run
+# Explicitly billable evaluation, only on a configured owner-controlled preview:
+npm run evaluate:akiibot -- --base-url http://127.0.0.1:3137 --max-calls 12 --max-usd 0.24
+# Revalidate supplied sprites without changing them:
+npm run prepare:akiibot -- --zip /absolute/path/to/Akiibot_Final_Sprite_Pack.zip --check
+```
+
+Production currently assumes direct Vercel ingress. Configure exact `AKIIBOT_ALLOWED_ORIGINS`, server-only service-account JSON (instead of a local Downloads path), Redis credentials, and a stable signing secret in Vercel's secret environment settings before publishing. Preview AI stays disabled unless `AKIIBOT_PREVIEW_ENABLED=true`; prefixes differ by deployment environment but the spending ledger is shared by Google billing project. No `NEXT_PUBLIC_` secret is used. Verify actual ingress/cookies, free edge protection, pricing, billing alerts, least-privilege IAM and provider data handling during release; local success does not certify those project settings. The account-owned Upstash database must stay on Free without a paid upgrade.
+
+No production deployment was performed for Akiibot. See `docs/qa/akiibot.md` for evidence, performance and release boundaries.

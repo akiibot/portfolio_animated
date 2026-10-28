@@ -11,7 +11,10 @@
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "check:links": "node scripts/check-links.mjs",
-    "prepare:sequence": "node scripts/prepare-sequence.mjs"
+    "prepare:sequence": "node scripts/prepare-sequence.mjs",
+    "test:integration:akiibot": "vitest run --config vitest.integration.config.mts",
+    "prepare:akiibot": "node scripts/prepare-akiibot.mjs",
+    "evaluate:akiibot": "node scripts/evaluate-akiibot.mjs"
   },
   "dependencies": {
     "@google/genai": "2.31.0",

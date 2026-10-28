@@ -131,3 +131,54 @@ it("reserves spending atomically and keeps original month on settlement", async 
   expect(await g.spent(now)).toBe(300);
   expect(await g.spent(Date.UTC(2026, 10, 1))).toBe(0);
 });
+
+it("never admits concurrent reservations beyond the monthly allowance", async () => {
+  const g = guard();
+  const leases = Array.from({ length: 240 }, () => ({
+    id: crypto.randomUUID(),
+    browser: "synthetic",
+    session: "synthetic",
+    now,
+  }));
+  const results = await Promise.allSettled(
+    leases.map((l) => g.reserveCost(l, 8192, now)),
+  );
+  expect(results.filter((r) => r.status === "fulfilled")).toHaveLength(225);
+  expect(await g.spent(now)).toBe(225 * 19968);
+  expect(await g.spent(now)).toBeLessThanOrEqual(4500000);
+});
+it("releasing an old expired lease does not release a newer browser lease", async () => {
+  const prefix = "lease-test:" + crypto.randomUUID() + ":";
+  const g = new Guard(store, prefix, prefix + "billing:");
+  const first = await g.admitAttempt(input());
+  if (!first.allowed) throw Error();
+  // The test clock advances sorted-set time; explicitly expire the real Redis PX key too.
+  await store.eval(
+    "return redis.call('DEL',KEYS[1])",
+    [prefix + "active-browser:b"],
+    [],
+  );
+  const later = await g.admitAttempt(input("b", now + 46000));
+  if (!later.allowed) throw Error();
+  await g.finishAttempt(first.lease, undefined, undefined, false);
+  const third = await g.admitAttempt(input("b", now + 47000));
+  expect(third.allowed).toBe(false);
+  if (!third.allowed) expect(third.code).toBe("busy");
+});
+it("limits issuance independently from paid replies and bounds shared-IP attempts", async () => {
+  const g = guard();
+  for (let i = 0; i < 12; i++)
+    expect(
+      (await g.admitSessionCreation({ browserId: "b", ipHash: "ip", now }))
+        .allowed,
+    ).toBe(true);
+  expect(
+    (await g.admitSessionCreation({ browserId: "b", ipHash: "ip", now }))
+      .allowed,
+  ).toBe(false);
+  for (let i = 0; i < 60; i++)
+    await g.admitAttempt(input("different-" + i, now));
+  const after = await g.admitAttempt(input("another", now));
+  expect(after.allowed).toBe(false);
+  if (!after.allowed) expect(after.code).toBe("rate_limited");
+});

@@ -6,7 +6,7 @@ import type {
   DisplayMessage,
 } from "@/lib/akiibot/types";
 import { fallbackLinks } from "@/content/akiibot";
-import { restoreConversation, validMessages } from './client-state';
+import { restoreConversation, validMessages } from "./client-state";
 const storageKey = "akiibot-tab-v1";
 type Stored = {
   messages: DisplayMessage[];
@@ -37,8 +37,8 @@ export function useChat() {
       try {
         const raw = sessionStorage.getItem(storageKey);
         if (raw) {
-          const s = restoreConversation(raw,Date.now());
-          if(s) setData(s);
+          const s = restoreConversation(raw, Date.now());
+          if (s) setData(s);
         }
       } catch {
         /* Storage can be unavailable in privacy mode. */
@@ -58,10 +58,39 @@ export function useChat() {
         /* Continue in memory. */
       }
   }, [data, ready]);
+  useEffect(() => {
+    if (!data.expiresAt) return;
+    const expiresAt = data.expiresAt;
+    const timer = setTimeout(
+      () =>
+        setData((s) =>
+          s.expiresAt === expiresAt
+            ? {
+                ...s,
+                messages: [],
+                sessionToken: undefined,
+                historyToken: undefined,
+                expiresAt: undefined,
+                remainingMessages: null,
+              }
+            : s,
+        ),
+      Math.max(0, expiresAt - Date.now()),
+    );
+    return () => clearTimeout(timer);
+  }, [data.expiresAt]);
   const setDraft = (draft: string) => setData((s) => ({ ...s, draft }));
   async function send(text?: string) {
-    const message = (text ?? current.current.draft).trim();
-    if (busy.current || !message || [...message].length > 1200) return;
+    const rawSubmittedDraft = text ?? current.current.draft;
+    const message = rawSubmittedDraft.trim();
+    if (
+      busy.current ||
+      !message ||
+      [...message].length > 1200 ||
+      (current.current.remainingMessages === 0 &&
+        (current.current.expiresAt || 0) > Date.now())
+    )
+      return;
     busy.current = true;
     setPending(true);
     setStatus(null);
@@ -91,6 +120,8 @@ export function useChat() {
         const s = await post("session", {});
         snapshot = {
           ...snapshot,
+          messages: [],
+          remainingMessages: null,
           sessionToken: s.sessionToken,
           expiresAt: s.expiresAt,
           historyToken: undefined,
@@ -110,10 +141,22 @@ export function useChat() {
         typeof reply.historyToken !== "string"
       )
         throw new Error("Invalid response");
-      if(!validMessages([{id:'reply',role:'assistant',text:reply.answer,sources:reply.sources,suggestions:reply.suggestions,mood:reply.mood}]))throw new Error('Invalid response');
+      if (
+        !validMessages([
+          {
+            id: "reply",
+            role: "assistant",
+            text: reply.answer,
+            sources: reply.sources,
+            suggestions: reply.suggestions,
+            mood: reply.mood,
+          },
+        ])
+      )
+        throw new Error("Invalid response");
       setData((s) => ({
         ...snapshot,
-        draft: s.draft === message ? "" : s.draft,
+        draft: s.draft === rawSubmittedDraft ? "" : s.draft,
         messages: [
           ...snapshot.messages,
           { id: crypto.randomUUID(), role: "user", text: message },
