@@ -62,7 +62,7 @@ No review findings were deferred. Additional author checks added bounded restore
 
 ## Production release boundaries
 
-No push, merge, Vercel preview publication or production deployment occurred. Real local AI works, but these release checks remain separate:
+Production was deployed on 28 October 2026 after owner approval. See [akiibot-production-release.md](akiibot-production-release.md) for deployment, public smoke checks, configuration and rollback details. The following records the original release checklist and remaining verification boundaries:
 
 - Install production server-only secrets in the hosting environment; a local Downloads credential path is not a production credential. Use the same project ledger and stable session secret, exact deployment origin allowlists and explicit preview enablement.
 - Confirm actual Vercel ingress/XFF overwrite, cookies, free edge/bot protections and body handling on the deployed preview. Application controls cannot prevent every distributed flood from consuming hosting or free-Redis quota. Do not enable a paid WAF/Redis upgrade automatically.
@@ -71,4 +71,4 @@ No push, merge, Vercel preview publication or production deployment occurred. Re
 - Test blocked storage, real on-screen keyboards and assistive technology on target devices; automated coverage does not certify all browsers. Verify closed-widget CLS against a deployed baseline if a release performance guarantee is needed.
 - Keep `AKIIBOT_ENABLED=false` available as a kill switch, retain the previous working deployment, and roll back by promoting it. Static portfolio/contact links remain usable with AI disabled.
 
-See the implementation plan/spec for the full policy and test boundaries. Local implementation is reviewable and usable; production readiness is not implied by the local checks.
+See the implementation plan/spec for the full policy and test boundaries. Local test evidence and public production smoke evidence are recorded separately.
