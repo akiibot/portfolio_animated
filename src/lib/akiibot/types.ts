@@ -1,0 +1,10 @@
+export type SourceLink = { id:string; label:string; href:string };
+export type HistoryTurn = { user:string; assistant:string };
+export type Mood = 'answering'|'unsure'|'happy';
+export type ModelReply = { answer:string; sourceIds:string[]; suggestions:string[]; mood:Mood };
+export type ChatRequest = { message:string; sessionToken:string; historyToken?:string; requestId:string };
+export type ChatReply = { answer:string; sources:SourceLink[]; suggestions:string[]; mood:Mood; historyToken:string; remainingMessages:number };
+export type ErrorCode = 'invalid_request'|'forbidden'|'session_expired'|'rate_limited'|'session_limit'|'busy'|'duplicate'|'budget_exhausted'|'unavailable'|'timeout';
+export type ChatFailure = { code:ErrorCode; message:string; retryAfterSeconds?:number; fallbackLinks:SourceLink[] };
+export type TokenUsage = { inputTokens:number; billableOutputTokens:number };
+export type DisplayMessage = {id:string;role:'user'|'assistant';text:string;sources?:SourceLink[];suggestions?:string[];mood?:Mood};
