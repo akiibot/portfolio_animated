@@ -321,7 +321,7 @@ test("lightweight real captures use their direct JPEG URL without runtime transf
   await page.goto("/projects/find-my-paw", { waitUntil: "domcontentloaded" });
   await expect(
     page.getByRole("img", {
-      name: "Find My Paw deployed landing page with QR pet identification",
+      name: "Find My Paw landing page featuring a smart QR pet collar",
     }),
-  ).toHaveAttribute("src", "/projects/captures/find-my-paw.jpg");
+  ).toHaveAttribute("src", "/projects/captures/find-my-paw-landing.jpg");
 });

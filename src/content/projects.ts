@@ -26,11 +26,13 @@ const portfolioProjects: readonly Project[] = [
       checkedAt: date,
     },
     screenshots: [
-      capture(
-        "find-my-paw.jpg",
-        "Find My Paw deployed landing page with QR pet identification",
-        "Public product landing page · captured October 2026",
-      ),
+      {
+        src: "/projects/captures/find-my-paw-landing.jpg",
+        alt: "Find My Paw landing page featuring a smart QR pet collar",
+        caption: "Find My Paw · Smart QR collar",
+        width: 1974,
+        height: 1250,
+      },
       capture(
         "find-my-paw-process.jpg",
         "Find My Paw explaining the scan-to-contact process",
